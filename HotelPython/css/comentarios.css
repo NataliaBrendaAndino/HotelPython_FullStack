@@ -1,0 +1,64 @@
+/* Estilos para el contenedor de comentarios */
+.contenedor-principal {
+    padding: 0 50px;
+}
+/* Estilos para cada comentario */
+.comentario {
+    background-color: #f4f4f4; /* Fondo gris claro */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    font-family: Arial, sans-serif; /* Tipo de fuente (ajusta según tus preferencias) */
+    font-size: 16px; /* Tamaño de fuente */
+    line-height: 1.6; /* Espaciado entre líneas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sutil sombra */
+    transition: transform 0.2s; /* Efecto de transición al pasar el mouse */
+    cursor: pointer; /* Cursor de mano al pasar el mouse */
+    margin: 30px; /* Centra horizontalmente el contenido en el contenedor principal */
+    width: 250px; /* Ancho del comentario */
+    height: 300px; /* Alto del comentario */
+    
+
+    /* Estilo al pasar el mouse (por ejemplo, agrandar ligeramente) */
+    transform: scale(1);
+}
+
+.comentarios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Tres columnas */
+    grid-template-rows: repeat(9, auto); /* Nueve filas */
+    gap: 3px; /* Espacio entre celdas */
+    }
+
+/* Estilos para cada celda de comentario */
+.comentarios-grid .comentario {
+    background-color: #f2f2f2; /* Color de fondo gris claro */
+    padding: 10px;
+    border: 1px solid #ddd; /* Borde ligero */
+    justify-content: center; /* Centra horizontalmente las filas */
+    align-content: center; /* Centra verticalmente las filas */
+
+}
+
+
+.comentario:hover {
+    transform: scale(1.03);
+}
+
+/* Estilos para los títulos de los comentarios */
+.comentario h3 {
+    font-size: 20px; /* Tamaño de fuente para el título */
+    margin: 10px 0; /* Espaciado superior e inferior */
+}
+
+/* Estilos para el texto de los comentarios */
+.comentario p {
+    font-size: 16px; /* Tamaño de fuente para el texto */
+    margin: 10px 0; /* Espaciado superior e inferior */
+}
+
+/* Estilos para la información adicional (por ejemplo, el correo) */
+.comentario span {
+    font-size: 14px; /* Tamaño de fuente para la información adicional */
+    color: #666; /* Color de texto gris para la información adicional */
+}
+

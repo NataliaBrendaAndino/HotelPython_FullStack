@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOTEL PYTHON</title>
+    <link rel="shortcut icon" href="logos/Hotel Pythonlogo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/estilos_menu.css">
+    <link rel="stylesheet" href="../css/estilos_servicios.css">
+</head>
+
+<body>
+    <div class="menu">
+        <div>
+            <img src="../img/logo3.png" alt="Logo Hotel Python">
+        </div>
+
+        <div>
+            <ul>
+                <li><a href="../index.html">INICIO</a></li>
+                <li><a href="./Habitacion.html">HABITACIONES</a></li>
+                <li><a href="./Servicios.html">SERVICIOS</a></li>
+                <li><a href="./galeria.html">GALERIA</a></li>
+                <li><a href="../index.html#contactanos">CONTACTO</a></li>
+            </ul>
+        </div>
+
+        <div class="reservar">
+            <a id="reservar-link" href="Reservar.html">RESERVAR</a>
+            <img src="../img/notificacion.png" alt="Campana">
+            <audio id="campana-audio" src="../sound/call-to-attention-123107.mp3"></audio>
+            <script>
+                const campana = document.querySelector(".reservar img");
+                const reservarLink = document.getElementById("reservar-link");
+                const campanaAudio = document.getElementById("campana-audio");
+        
+                campana.addEventListener("click", () => {
+                    campanaAudio.play();
+                });
+        
+                reservarLink.addEventListener("click", (e) => {
+                    e.preventDefault(); // Evita la navegación predeterminada
+                    campanaAudio.play();
+                    setTimeout(() => {
+                        // Redirige a la página "Reservar.html" después de que termine el sonido
+                        window.location.href = reservarLink.href;
+                    }, campanaAudio.duration * 1000); // Espera la duración del sonido en milisegundos antes de redirigir
+                });
+            </script>
+        </div>
+    </div>
+
+
+    <main>
+        <div class="servicio">
+            <h3 id="galeria">SPA</h3>
+            <div>
+                <p>Sumérgete en un oasis de relajación y rejuvenecimiento en nuestro exquisito SPA. En un ambiente sereno y cuidadosamente diseñado, te invitamos a escapar de las tensiones cotidianas y experimentar un mundo de tranquilidad. Nuestro equipo de terapeutas expertos está dedicado a ofrecerte tratamientos indulgentes que nutren tanto el cuerpo como el alma. Ven y descubre un refugio de bienestar en el corazón de nuestro hotel, donde tus sentidos serán mimados y tus preocupaciones se desvanecerán. Tu viaje hacia la relajación comienza aquí, en nuestro SPA de clase mundial.</p>
+                <img src="/img/spa1.jpg" alt="Camillas de Masajes" width="150px">
+            </div>
+        </div>
+    
+        <div class="servicio">
+            <h3 id="galeria">RESTAURANTE</h3>
+            <div>
+                <p>Deléitate en nuestro restaurante frente al mar, donde los sabores se fusionan con las vistas panorámicas. Desde platos locales hasta creaciones internacionales, cada bocado es una experiencia culinaria única. Disfruta de la brisa marina mientras exploras una cocina excepcional con vista al horizonte.</p>
+                <img src="/img/comida3.jpg" alt "Mostrador de Comida" width="150px">
+            </div>
+        </div>
+    
+        <div class="servicio">
+            <h3 id="galeria">PISCINA</h3>
+            <div>
+                <p>Sumérgete en nuestra piscina con vista al océano, donde la relajación y la diversión convergen. Relájate en las tumbonas bajo el sol o refréscate en las aguas cristalinas con el mar de fondo. Desde momentos serenos hasta diversión en familia, nuestra piscina es el lugar perfecto para crear recuerdos inolvidables.</p>
+                <img src="/img/pileta.jpg" alt="Vista de la Piscina" width="150px">
+            </div>
+        </div>
+    </main>
+    
+    <footer class="contenedor-footer">
+        <div>
+            <p>Crta puerto Juares a Punta Sam km 3,5.
+                <br>Carr. a Punta Sam 3,5.
+                <br>77999 Cancun, Q.R., Mexico
+            </p>
+        </div>
+        <div>
+            <img src="../img/logo4.png" alt="Logo Hotel Python">
+        </div>
+        <ul>
+            
+            <li><a href="https://wa.me/542235537891?text=%C2%A1Hola!%20%C2%A1Quiero%20reservar%20lugar!%20%F0%9F%8F%96%EF%B8%8F">📞 Teléfono: 223 5567892 </a></li>
+            <li><a href="mailto:hotelpython@gmail.com">📧 Correo: hotelpython@gmail.com</a></li>
+
+        </ul>
+        
+    </footer>
+
+</body>
+
+</html>

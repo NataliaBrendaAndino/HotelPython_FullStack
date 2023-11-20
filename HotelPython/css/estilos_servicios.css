@@ -1,0 +1,180 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+/*----------------*/
+/*Estilos Menu/
+/*----------------*/
+
+.contenedor-principal .menu{
+    grid-area: nav;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #457AA4;
+    color: #FFFFFF;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 97vw;
+}
+
+.menu img{
+    width: 10vw;
+    margin: 0px 15px;
+    transition: transform 0.5s;
+}
+
+.menu img:hover{
+    transform: scale(1.2)
+}
+
+.menu ul{
+    list-style: none;
+    color: #FFFFFF;
+}
+
+.menu ul li{
+    display: inline-block;
+}
+
+.menu li a{
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu li a:hover{
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.menu a{
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu a:hover{
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.reservar{
+    padding-bottom: 4vh;
+}
+
+.reservar img{
+    width: 3vw;
+}
+
+@keyframes swing{
+    0%{
+        transform: rotate(0deg);
+    }
+    20%{
+        transform: rotate(10deg);
+    }
+    40%{
+        transform: rotate(-10deg);
+    }
+    60%{
+        transform: rotate(5deg);
+    }
+    80%{
+        transform: rotate(-5deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+.reservar img:hover{
+    animation: swing 2s infinite;
+    transform-origin: 50% 100%;
+}
+
+
+/*----------------*/
+/*Estilos Habitaciones*/
+/*----------------*/
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.servicio h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.servicio {
+    display: flex;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    flex-direction: column; 
+}
+
+.servicio div {
+    display: flex;
+    flex-direction: row;
+}
+
+.servicio p {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.servicio img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px; /* Para bordes redondeados */
+}
+
+
+
+
+
+/*----------------*/
+/*Estilos para las habitaciones*/
+/*----------------*/
+
+
+
+
+
+
+/*----------------*/
+/*Estilos footer*/
+/*----------------*/
+
+.contenedor-footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 30px;
+    grid-area: footer;
+}
+
+.contenedor-footer img {
+    width: 140px;
+    margin: 0px 15px;
+}
+
+.contenedor-footer ul {
+    list-style: none;
+}

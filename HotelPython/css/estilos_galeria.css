@@ -1,0 +1,102 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+/*----------------*/
+/*Estilos Menu/
+/*----------------*/
+
+/* Estilos para el menu */ /*probar de poner el menu y el principio unidos y despues fijar el menu*/ 
+
+.menu {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #548dbb;
+    color: #FFFFFF;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.menu img{
+    width: 10vw;
+    margin: 0px 15px;
+}
+
+.menu ul {
+    list-style: none;
+    color: #FFFFFF;
+}
+
+.menu ul li {
+    display: inline-block;
+}
+
+.menu li a {
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu li a:hover {
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.menu a {
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+    
+}
+
+.menu a:hover {
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.reservar img{
+    width: 3vw;
+}
+
+/*----------------*/
+/*Estilos Habitaciones*/
+/*----------------*/
+
+
+
+
+/*----------------*/
+/*Estilos para las habitaciones*/
+/*----------------*/
+
+
+
+
+
+
+/*----------------*/
+/*Estilos footer*/
+/*----------------*/
+
+.contenedor-footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 30px;
+    grid-area: footer;
+}
+
+.contenedor-footer img {
+    width: 140px;
+    margin: 0px 15px;
+}
+
+.contenedor-footer ul {
+    list-style: none;
+}

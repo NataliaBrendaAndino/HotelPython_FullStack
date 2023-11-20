@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOTEL PYTHON</title>
+    <link rel="shortcut icon" href="logos/Hotel Pythonlogo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/estilos_menu.css">
+    <link rel="stylesheet" href="../css/estilos_habitacion.css">
+
+    <!-- cdn FontAwesome -->
+    <script src="https://kit.fontawesome.com/7ced021a96.js" crossorigin="anonymous"></script>
+    <script src="menu.js"></script>
+</head>
+
+<body class="contenedor-habitaciones">
+    <section class="menu">
+        <div>
+            <img src="/img/logo3.png" alt="Logo Hotel Python">
+        </div>
+
+        <button id="menu">
+            <span id="menu-abrir">&#9776;</span>
+            <span id="menu-cerrar">X</span>
+        </button>
+
+        <nav>
+            <ul>
+                <li><a href="../index.html">INICIO</a></li>
+                <li><a href="./Habitacion.html">HABITACIONES</a></li>
+                <li><a href="./Servicios.html">SERVICIOS</a></li>
+                <li><a href="./galeria.html">GALERIA</a></li>
+                <li><a href="../index.html#contactanos">CONTACTO</a></li>
+            </ul>
+        </nav>
+        <div class="reservar">
+            <a id="reservar-link" href="./pages/Reservar.html">RESERVAR</a>
+            <img src="/img/notificacion.png" alt="Campana">
+            <audio id="campana-audio" src="../sound/call-to-attention-123107.mp3"></audio>
+            <script>
+                const campana = document.querySelector(".reservar img");
+                const reservarLink = document.getElementById("reservar-link");
+                const campanaAudio = document.getElementById("campana-audio");
+        
+                campana.addEventListener("click", () => {
+                    campanaAudio.play();
+                });
+        
+                reservarLink.addEventListener("click", (e) => {
+                    e.preventDefault(); // Evita la navegación predeterminada
+                    campanaAudio.play();
+                    setTimeout(() => {
+                        // Redirige a la página "Reservar.html" después de que termine el sonido
+                        window.location.href = reservarLink.href;
+                    }, campanaAudio.duration * 1000); // Espera la duración del sonido en milisegundos antes de redirigir
+                });
+            </script>
+        </div>
+    </section>
+
+    <main>
+
+        <div class="titulo-habitaciones">
+            <h2>Habitaciones</h2>
+            <br>
+            <p>En Hotel Python, nuestras habitaciones cuentan con servicio de internet, TV,
+                aire acondicionado, calefacción, secadores de pelo, caja de seguridad y todo el confort
+                que necesitas.</p>
+                <br>
+            <i class="fa-solid fa-wifi"></i>
+            <i class="fa-solid fa-tv"></i>
+            <i class="fa-solid fa-snowflake"></i>
+            <i class="fa-solid fa-shower"></i>
+            <i class="fa-solid fa-martini-glass-citrus"></i>
+        </div>
+
+        
+            <div class="habitacion">
+                <div class="habitacion-img">
+                    <img src="../img/habitacionHTML.jpg" alt="habitacion-html">
+                </div>
+                <div class="habitacion-text">
+                    <h3>Habitacion HTML</h3>
+                    <br>
+                    <p>Ideal para una persona con una camamatrimonial o 2 camas individuales.Habitación funcional y cálida. Si usted busca una habitación de etiqueta, HTML es su lugar.
+                    </p>
+                    <a href="../Reservar.html"><button>RESERVAR</button></a>
+                </div>
+            </div>
+
+
+
+            <div class="habitacion">
+                <div class="habitacion-text">
+                    <h3>Habitacion CSS</h3>
+                    <br>
+                    <p>Espaciosa habitación con dos cómodas
+                        camas matrimoniales, ideal para parejas o
+                        amigos que viajan juntos. Disfruta de una
+                        estancia relajante en esta habitación con
+                        amplio espacio y comodidades modernas. CSS es el cuarto para dormir con estilo, vista al mar y, por supuesto, al lado de la cascada de nuestro hotel.
+                    </p>
+                    <a href="../Reservar.html"><button>RESERVAR</button></a>
+                </div>
+                <div class="habitacion-img">
+                    <img src="../img/habitacionCss.jpg" alt="habitacion-html">
+                </div>
+            </div>
+
+
+
+            <div class="habitacion">
+                <div class="habitacion-img">
+                    <img src="../img/habitacionJavascript.jpg" alt="habitacion-html">
+                </div>
+                <div class="habitacion-text">
+                    <h3>Habitacion JavaScript</h3>
+                    <br>
+                    <p>Perfecta para grupos pequeños o familias,
+                        esta habitación ofrece una cama
+                        matrimonial y una cama individual. Espacio
+                        acogedor y funcional que garantiza una
+                        estancia agradable para todos los
+                        miembros de tu grupo. Una habitación dinámica y funcional, para quienes buscan practicidad y vista.
+                    </p>
+                    <a href="../Reservar.html"><button>RESERVAR</button></a>
+                </div>
+            </div>
+
+
+            <div class="habitacion">
+                <div class="habitacion-text">
+                    <h3>Habitacion Python</h3>
+                    <br>
+                    <p>Esta habitación espaciosa es ideal para
+                        grupos más grandes o familias numerosas.
+                        Ofrece dos camas matrimoniales para un
+                        confort óptimo y espacio suficiente para
+                        todos. Una elección perfecta para disfrutar
+                        de tu estancia juntos. Como una serpiente que se desliza sin problemas por la selva de la programación, esta habitación te envolverá en su calidez y comodidad.
+                    </p>
+                    <a href="../Reservar.html"><button>RESERVAR</button></a>
+                </div>
+                <div class="habitacion-img">
+                    <img src="../img/habitacionPython.jpg" alt="habitacion-html">
+                </div>
+            </div>
+
+
+    </main>
+
+    <footer class="footer">
+        <div>
+            <p>Crta puerto Juares a Punta Sam km 3,5.
+                <br>Carr. a Punta Sam 3,5.
+                <br>77999 Cancun, Q.R., Mexico
+            </p>
+        </div>
+        <div>
+            <img src="../img/logo4.png" alt="Logo Hotel Python">
+        </div>
+        <div>
+            <ul>
+                <li><a href="https://wa.me/542235537891?text=%C2%A1Hola!%20%C2%A1Quiero%20reservar%20lugar!%20%F0%9F%8F%96%EF%B8%8F">📞 Teléfono: 223 5567892 </a></li>
+        <li><a href="mailto:hotelpython@gmail.com">📧 hotelpython@gmail.com</a></li>
+    
+            </ul>
+        </div>
+        
+    </footer>
+
+</body>
+
+</html>

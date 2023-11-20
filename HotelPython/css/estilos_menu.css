@@ -1,0 +1,207 @@
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+/* Para COMPUTADORAS */
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+/*----------------*/
+/*Estilos Menu/
+/*----------------*/
+
+#menu-check,
+#menu {
+    display: none;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #457AA4;
+    color: #FFFFFF;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 97vw;
+}
+
+.menu img {
+    width: 10vw;
+    margin: 0px 15px;
+    transition: transform 0.5s;
+}
+
+.menu img:hover {
+    transform: scale(1.2)
+}
+
+.menu ul {
+    list-style: none;
+    color: #FFFFFF;
+}
+
+.menu ul li {
+    display: inline-block;
+}
+
+.menu li a {
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu li a:hover {
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.menu a {
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.reservar {
+    padding-bottom: 4vh;
+}
+
+.reservar img {
+    width: 3vw;
+}
+
+@keyframes swing {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(10deg);
+    }
+
+    40% {
+        transform: rotate(-10deg);
+    }
+
+    60% {
+        transform: rotate(5deg);
+    }
+
+    80% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.reservar img:hover {
+    animation: swing 2s infinite;
+    transform-origin: 50% 100%;
+}
+
+.reservar img {
+    transition: transform 0.2s;
+    /* Agrega una transición suave */
+}
+
+.reservar:hover img {
+    transform: scale(1.2);
+    /* Aumenta el tamaño en un 20% */
+}
+
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+/* Para TABLETS */
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+
+@media (max-width: 1000px) {
+ 
+    /*----Menu----*/
+
+    .menu {
+        justify-content: space-around;
+        font-size: 13px;
+
+    }
+
+    .reservar {
+        padding-top: 1vh;
+    }
+}
+
+    /*--------------------------------------------------------------------------------------------------------------------------------*/
+    /* Para CELULARES */
+    /*--------------------------------------------------------------------------------------------------------------------------------*/
+
+
+    @media (max-width: 760px) {
+         /*----Menu----*/
+
+        #menu-check:not(:checked)~nav {
+            display: none;
+        }
+
+        #menu-check:checked~nav {
+            display: block;
+        }
+
+        #menu {
+            display: block;
+            color: #FFFFFF;
+            font-size: 1.6em;
+            font-weight: bold;
+            padding: 0.2em;
+            border-radius: 0.2em;
+            position: absolute;
+            left: 1em;
+            z-index: 9999;
+        }
+
+        #menu:hover {
+            color: #457AA4;
+            background-color: #ffffff70;
+        }
+
+        #menu-cerrar {
+            display: none;
+        }
+
+        #menu-check:checked~label #menu-abrir {
+            display: none;
+        }
+
+        #menu-check:checked~label #menu-cerrar {
+            display: block;
+        }
+
+        .menu nav {
+            position: absolute;
+            top: 3em;
+            left: 0;
+            height: 100%;
+            background-color: #457AA4;
+            opacity: 0.8;
+            color: #FFFFFF;
+            font-size: 1.3em;
+
+        }
+
+        .menu nav ul li {
+            display: block;
+            text-align: left;
+        }
+
+        .menu nav ul li a:hover {
+            background: none;
+        }
+
+        .reservar {
+            padding-left: 0px;
+        }
+    }

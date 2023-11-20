@@ -1,0 +1,250 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+
+/*----------------*/
+/*Estilos Menu/
+/*----------------*/
+
+.contenedor-habitaciones .menu{
+    grid-area: nav;
+}
+
+#menu {
+    display: none;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #457AA4;
+    color: #FFFFFF;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 97vw;
+}
+
+.menu img{
+    width: 10vw;
+    margin: 0px 15px;
+    transition: transform 0.5s;
+}
+
+.menu img:hover{
+    transform: scale(1.2)
+}
+
+.menu ul{
+    list-style: none;
+    color: #FFFFFF;
+}
+
+.menu ul li{
+    display: inline-block;
+}
+
+.menu li a{
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu li a:hover{
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.menu a{
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu a:hover{
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.reservar{
+    padding-bottom: 4vh;
+}
+
+.reservar img{
+    width: 3vw;
+}
+
+@keyframes swing{
+    0%{
+        transform: rotate(0deg);
+    }
+    20%{
+        transform: rotate(10deg);
+    }
+    40%{
+        transform: rotate(-10deg);
+    }
+    60%{
+        transform: rotate(5deg);
+    }
+    80%{
+        transform: rotate(-5deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+.reservar img:hover{
+    animation: swing 2s infinite;
+    transform-origin: 50% 100%;
+}
+
+.reservar img {
+    transition: transform 0.2s; /* Agrega una transición suave */
+}
+
+.reservar:hover img {
+    transform: scale(1.2); /* Aumenta el tamaño en un 20% */
+}
+
+
+
+/*--------------------*/
+/*Estilos Habitaciones*/
+/*--------------------*/
+
+
+.contenedor-habitaciones .titulo-habitaciones{
+    grid-area: titulo;
+}
+
+.titulo-habitaciones{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 50px 0;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.titulo-habitaciones i{
+   height: 25%;
+   width: 5%;
+}
+
+
+
+.habitaciones {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.habitacion {
+    display: flex;
+    padding: 20px;
+    align-items: center;
+}
+
+
+.contenedor-habitaciones .habitacion-img{
+    grid-area: imagen;
+}
+
+.habitacion-img {
+    width: 50%;
+    text-align: center;  
+}
+
+.habitacion-img img {
+    max-width: 70%;
+    height: auto;
+}
+
+
+.contenedor-habitaciones .habitacion-text{
+    grid-area: texto;
+}
+
+.habitacion-text {
+    display: block;
+    width: 50%;
+    padding: 0 20px;
+    text-align:justify;
+}
+
+.habitacion-text p {
+    font-size: 16px;
+}
+
+
+
+.button {
+    text-align: center;
+}
+
+button {
+    background-color: transparent;
+    border: 1px solid black; /* Borde negro de 1 píxel */
+    color: #000; /* Cambia el color del texto a negro */
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Cambia el color de fondo al pasar el ratón */
+}
+ /*
+.habitacion:nth-child(0),
+.habitacion:nth-child(2) {
+    background-color:rgb(218, 224, 222);
+}
+*/
+
+
+
+/*----------------*/
+/*Estilos footer*/
+/*----------------*/
+ 
+.contenedor-habitaciones .footer{
+    grid-area: footer;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 10px;
+    width: 97vw;
+}
+
+.footer img {
+    width: 10vw;
+    margin: 0px 15px;
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer div p{
+    text-align: center;
+}
+
+
+/*---------------------------------------------------
+Tengo que cambiar el grid para que quede responsive
+---------------------------------------------------*/

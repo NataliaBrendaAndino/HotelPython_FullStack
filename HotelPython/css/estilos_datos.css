@@ -1,0 +1,397 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Posicionamiento del Grid */
+
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+                                                 /* Para COMPUTADORAS */
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+
+.contenedor-principal{
+
+    display: grid;
+  
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: 15% auto 10%;
+  
+    /* Alinea horizontalmente */
+    justify-items: center; 
+    /* Alinea verticalmente 
+      align-items: center; */
+  
+    justify-content: space-around;
+    align-content: center;
+  
+  
+    grid-template-areas: "nav         nav         nav           nav"
+                         "datos       datos       datos         datos"
+                         "footer      footer      footer        footer"
+  
+  }
+  
+
+/*----------------*/
+/*Estilos Menu/
+/*----------------*/
+
+.contenedor-principal .menu{
+    grid-area: nav;
+}
+
+#menu{
+    display: none;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #457AA4;
+    color: #FFFFFF;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 97vw;
+}
+
+.menu img{
+    width: 10vw;
+    margin: 0px 15px;
+    transition: transform 0.5s;
+}
+
+.menu img:hover{
+    transform: scale(1.2)
+}
+
+.menu ul{
+    list-style: none;
+    color: #FFFFFF;
+}
+
+.menu ul li{
+    display: inline-block;
+}
+
+.menu li a{
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu li a:hover{
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.menu a{
+    color: #FFFFFF;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu a:hover{
+    background-color: #0000001f;
+    animation: 0.5s infinite boton-menu;
+    border-radius: 40px;
+}
+
+.reservar{
+    padding-bottom: 4vh;
+}
+
+.reservar img{
+    width: 3vw;
+}
+
+@keyframes swing{
+    0%{
+        transform: rotate(0deg);
+    }
+    20%{
+        transform: rotate(10deg);
+    }
+    40%{
+        transform: rotate(-10deg);
+    }
+    60%{
+        transform: rotate(5deg);
+    }
+    80%{
+        transform: rotate(-5deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+.reservar img:hover{
+    animation: swing 2s infinite;
+    transform-origin: 50% 100%;
+}
+
+
+
+/*----------------*/
+/*Estilos Datos*/
+/*----------------*/
+
+
+.contenedor-principal .datos{
+    grid-area: datos;
+}
+
+.datos{
+    display: flex;
+    flex-direction: column;
+
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 25px;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+
+    background-image: linear-gradient(rgba(5,7,12,0.3), rgba(5,7,12,0.3)), url(/img/habitacionJAVASCRIPT.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    width: 97vw;
+    height: 100vh;
+}
+
+.datos h2{
+    border: 2px solid #FFFFFF;
+    text-align: center;
+    background-color: #0303033d;
+    padding: 0.3em;
+}
+
+.datos form{
+    display: flex;
+    padding: 1em;
+    gap: 2em;
+}
+
+.datos #botones{
+    padding-top: 1em;
+}
+
+
+
+/*----------------*/
+/*Estilos footer*/
+/*----------------*/
+ 
+.contenedor-principal .footer{
+    grid-area: footer;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 2em;
+    padding-top: 3em;
+    width: 97vw;
+}
+
+.footer img {
+    width: 10vw;
+    margin: 0px 15px;
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer div p{
+    text-align: center;
+}
+
+
+
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+                                                      /* Para TABLETS */
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+
+@media (max-width: 1000px) {
+    .contenedor-principal{
+      display: grid;
+  
+      grid-template-columns: auto auto;
+      grid-template-rows: 15% auto 10%;
+  
+  
+      /* Alinea horizontalmente */
+      justify-items: center;
+      /* Alinea verticalmente 
+          align-items: center; */
+  
+      justify-content: space-evenly;
+      align-content: center;
+  
+  
+      grid-template-areas: "nav         nav"
+                           "datos       datos"
+                           "footer      footer"
+    }
+  
+    /*----Menu----*/
+    
+    .menu{
+        justify-content: space-around;
+        font-size: 13px;
+
+    }
+
+
+
+    .reservar{
+        padding-top: 1vh;
+    }
+
+    
+
+    /*----Datos----*/
+
+
+    /*----Footer----*/
+
+
+  }
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+                                                   /* Para CELULARES */
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+
+
+@media (max-width: 760px) {
+    .contenedor-principal {
+      display: grid;
+  
+      grid-template-columns: auto;
+      grid-template-rows: 10% auto 10%;
+  
+  
+      /* Alinea horizontalmente */
+      justify-items: center;
+      /* Alinea verticalmente 
+          align-items: center; */
+  
+      justify-content: space-evenly;
+      align-content: center;
+  
+      /*Tengo que cambiar el menu, ponerlo hamburguesa*/
+  
+      grid-template-areas: "nav"
+                           "datos"
+                           "footer"                    
+    }
+   
+
+    /*----Menu----*/
+    /* modificar el menu y ponerlo tipo hamburguesa. Tambien probar de sacar la palabra "reservar" y dejar la campanita como boton*/    
+
+    .menu nav{
+        display: none;
+    }
+    .menu nav.visible{
+        display: block;
+    }
+
+    #menu{
+        display: block;
+        color: #ffffff;
+        background-color: #ffffff31;
+        font-size: 1.6em;
+        font-weight: bold;
+        padding: 0.2em;
+        border-radius: 0.2em;
+        position: absolute;
+        left: 1em;
+        z-index: 9999;
+    }
+
+    #menu:hover{
+        color: #457AA4;
+        background-color: #ffffff70;
+    }
+
+    #menu-cerrar{
+        display: none;
+    }
+
+    #menu.salir #menu-abrir{
+        display: none;
+    }
+    #menu.salir #menu-cerrar{
+        display: block;
+    }
+
+    body.no-scroll{
+        overflow: hidden;
+    }
+
+    .menu nav{
+        position: absolute;
+        left: 0em;
+        top: 5em;
+        height: 100%;
+        background-color: #457AA4;
+        opacity: 0.7;
+        color: #FFFFFF;
+        font-size: 1em;
+        z-index: 9998;
+        
+    }
+
+    .menu nav ul li{
+       display: block;
+       text-align: left ;
+    }
+
+    .menu nav ul li a:hover{
+        background: none;
+    }
+
+    
+
+
+    /*----Datos----*/
+
+    .datos{
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    color: #fff;
+
+    }
+
+    .datos form{
+        flex-direction: column;
+        padding: 2em;
+    }
+
+
+    /*----Footer----*/
+    /* modificar le footer para que queden solo los iconos */
+
+    .footer img{
+        width: 20vw;
+    }
+
+    .footer div p{
+        font-size: 2vw;
+    }
+
+  }
