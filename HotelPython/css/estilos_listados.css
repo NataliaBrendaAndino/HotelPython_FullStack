@@ -1,0 +1,56 @@
+body{
+    margin: 1em;
+    background-color: #407198;
+}
+
+.contenedor{
+    display: grid;
+    /*grid-template: filas / columnas;*/
+    grid-template: 20% auto 10% / 20% auto 20%;
+    grid-template-areas: "logo    titulo   titulo"
+                         "tablas  tablas   tablas"
+                         "footer  footer   footer" 
+    ;
+    justify-content: space-around;
+    justify-items: center;
+    
+}
+
+
+.contenedor .logo{
+    grid-area: logo;
+}
+
+.contenedor .titulo{
+    grid-area: titulo;
+}
+
+img{
+    width: 15vw;
+}
+
+
+.titulo h3{
+    font-size: 50px;
+    color:#ffffff;
+
+}
+
+
+.contenedor .tablas{
+    grid-area: tablas;
+}
+
+
+
+.contenedor .footer{
+    grid-area: footer;
+}
+
+.footer{
+    text-align: center;
+}
+
+.footer p{
+    color: #ffffff;
+}

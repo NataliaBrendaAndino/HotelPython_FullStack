@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function validarNombreApellido(texto) {
         return texto.length >= 3;
     }
+
 });
 
 // Función para realizar la solicitud a la API

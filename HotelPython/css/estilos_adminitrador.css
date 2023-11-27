@@ -1,9 +1,11 @@
 body{
+    margin: 6em;
     background-color: #407198;
 }
 
 img{
     width: 15vw;
+    
 }
 
 form{
@@ -17,7 +19,10 @@ form{
     align-items:center ;
 
     text-align: center;
+
 }
+
+
 
 a{
     padding-top: 30px;

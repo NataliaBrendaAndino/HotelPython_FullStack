@@ -1,7 +1,6 @@
 console.log("cargando codigo");
 
 window.addEventListener("DOMContentLoaded", (event) =>{
-    console.log("DOM completamente cargado y procesado");
 
     const menuBtn = document.getElementById("menu");
     const nav = document.querySelector(".menu nav");
@@ -11,6 +10,8 @@ window.addEventListener("DOMContentLoaded", (event) =>{
         menuBtn.classList.toggle("salir");
         nav.classList.toggle("visible");
         body.classList.toggle("no.scroll");
+
+        console.log("DOM completamente cargado y procesado");
     })
     }
     )
