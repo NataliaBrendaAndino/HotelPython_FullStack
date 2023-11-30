@@ -23,7 +23,7 @@ CORS(app)  # Esto habilitará CORS para todas las rutas
 
 #--------------------------------------------------------------------
 
-class Huesped:
+class Reserva:
     #--------------------------------------------------------------------
     def __init__(self, host, user, password, database):
         # Primero, establecemos una conexion sin especificar la base de datos
@@ -46,7 +46,7 @@ class Huesped:
                 raise err
 
 # Una vez que la base de datos esta establecida, creamos la tabla si no existe
-        self.cursor.execute('''CREATE TABLE IF NOT EXIST huespedes(
+        self.cursor.execute('''CREATE TABLE IF NOT EXIST reservas(
             codigo INT (3) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
             apellido VARCHAR (60) NOT NULL,
             nombre VARCHAR (60) NOT NULL,
@@ -75,12 +75,12 @@ class Huesped:
 
     def agregar_reserva(self, codigo, apellido, nombre, dni, mail, cantidad, habitacion, ingreso, egreso, pago):
         # Verificamos si ya existe el huesped con el mismo codigo de reserva
-        self.cursor.execute(f"SELECT * FROM huespedes WHERE codigo = {codigo}")
-        huesped_existe = self.cursor.fetchone()
-        if huesped_existe:
+        self.cursor.execute(f"SELECT * FROM reservas WHERE codigo = {codigo}")
+        reserva_existe = self.cursor.fetchone()
+        if reserva_existe:
             return False
 
-        sql = "INSERT INTO huespedes (codigo, apellido, nombre, dni, mail, cantidad, habitacion, ingreso, egreso, pago) VALUES (%s %s %s %s %s %s %s)"
+        sql = "INSERT INTO reservas (codigo, apellido, nombre, dni, mail, cantidad, habitacion, ingreso, egreso, pago) VALUES (%s %s %s %s %s %s %s)"
         valores = (codigo, apellido, nombre, dni, ingreso, egreso, pago)
 
         self.cursor.execute(sql, valores)
@@ -92,14 +92,14 @@ class Huesped:
 
     def consultar_reserva(self, codigo):
 # Consultamos el huesped a partir del codigo de reserva
-        self.cursor.execute(f"SELECT * FROM huespedes WHERE codigo = {codigo}")
+        self.cursor.execute(f"SELECT * FROM reservas WHERE codigo = {codigo}")
         return self.cursor.fetchone()
 
 
 #--------------------------------------------------------------------
 
     def modificar_reserva(self, codigo, nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago):
-        sql = "UPDATE huespedes SET apellido = %s, nombre = %s, dni = %s, mail = %s, cantidad = %s, habitacion = %s, ingreso = %s, egreso = %s, pago = %s WHERE codigo = %s"
+        sql = "UPDATE reservas SET apellido = %s, nombre = %s, dni = %s, mail = %s, cantidad = %s, habitacion = %s, ingreso = %s, egreso = %s, pago = %s WHERE codigo = %s"
         valores = (nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago, codigo)
         self.cursor.execute(sql, valores)
         self.conn.commit()
@@ -110,16 +110,16 @@ class Huesped:
 
 
     def listar_reservas(self):
-        self.cursor.execute("SELECT * FROM huespedes")
-        huespedes = self.cursor.fetchall()
-        return huespedes
+        self.cursor.execute("SELECT * FROM reservas")
+        reservas = self.cursor.fetchall()
+        return reservas
 
 
 #--------------------------------------------------------------------
 
     def eliminar_reservas(self, codigo):
     # Eliminamos una reserva de la tabla a partir de su codigo (o apretando el boton en la tabla???)
-        self.cursor.execute(f"DELETE FROM huespedes WHERE codigo = {codigo}")
+        self.cursor.execute(f"DELETE FROM reservas WHERE codigo = {codigo}")
         self.conn.commit()
         return self.cursor.rowcount > 0 
 
@@ -128,19 +128,19 @@ class Huesped:
 
     def mostrar_reservas(self, codigo):
     # Mostramos los datos de un huesped a partir de su codigo de reserva
-        huesped = self.consultar_reserva(codigo)
-    if huesped: 
+        reserva = self.consultar_reserva(codigo)
+    if reserva: 
         print ("-" * 40)
-        print (f"Código........: {huesped['codigo']}")
-        print (f"Apellido......: {huesped['apellido']}")
-        print (f"Nombre........: {huesped['nombre']}")
-        print (f"DNI...........: {huesped['dni']}")
-        print (f"Mail..........: {huesped['mail']}")
-        print (f"Cantidad......: {huesped['cantidad']}")
-        print (f"Habitacion....: {huesped['habitacion']}")
-        print (f"Fe. de Ingreso: {huesped['ingreso']}")
-        print (f"Fe. de Egreso.: {huesped['egreso']}")
-        print (f"Me. de Pago...: {huesped['pago']}")
+        print (f"Código........: {reserva['codigo']}")
+        print (f"Apellido......: {reserva['apellido']}")
+        print (f"Nombre........: {reserva['nombre']}")
+        print (f"DNI...........: {reserva['dni']}")
+        print (f"Mail..........: {reserva['mail']}")
+        print (f"Cantidad......: {reserva['cantidad']}")
+        print (f"Habitacion....: {reserva['habitacion']}")
+        print (f"Fe. de Ingreso: {reserva['ingreso']}")
+        print (f"Fe. de Egreso.: {reserva['egreso']}")
+        print (f"Me. de Pago...: {reserva['pago']}")
         print ("-" * 40)
     else: 
         print("Huesped no registrado.")
@@ -151,11 +151,11 @@ class Huesped:
 #--------------------------------------------------------------------
 # Crear una instancia de la clase Huesped
 
-huesped = Huesped(host='localhost', user='root', password='', database= 'miapp')
+reserva = Reserva(host='localhost', user='root', password='', database= 'miapp')
 
-huesped.agregar_reserva(1, "Paez", "Florencia", 36170641, fajglgl@hotmail.com, 2, CSS, 28112023, 30112023, 2)
-huesped.agregar_reserva(2, "Dominguez", "Pedro", 23575685, fajglgl@hotmail.com, 1, HTML, 30112023, 15122023, 2)
-huesped.agregar_reserva(3, "Stover", "Juan Martin", 28194042, fajglgl@hotmail.com, 2, PYTHON , 29112023, 12122023, 2)
+reserva.agregar_reserva(1, "Paez", "Florencia", 36170641, fajglgl@hotmail.com, 2, CSS, 28112023, 30112023, 2)
+reserva.agregar_reserva(2, "Dominguez", "Pedro", 23575685, fajglgl@hotmail.com, 1, HTML, 30112023, 15122023, 2)
+reserva.agregar_reserva(3, "Stover", "Juan Martin", 28194042, fajglgl@hotmail.com, 2, PYTHON , 29112023, 12122023, 2)
 
 
 #--------------------------------------------------------------------
@@ -163,16 +163,16 @@ huesped.agregar_reserva(3, "Stover", "Juan Martin", 28194042, fajglgl@hotmail.co
 #fetch("https://jovial-klepon-1e2878.netlify.app/reservar")
 @app.route("/reservas", methods=["GET"])
 def listar_reservas():
-    reserva = Huesped.listar_reservas()
+    reserva = Reserva.listar_reservas()
     return jsonify(reserva)
 
 #--------------------------------------------------------------------
 
 @app.route("/reservas/<int:codigo>", methods=["GET"])
 def mostrar_reservas(codigo):
-    huesped = Huesped.consultar_reserva(codigo)
-    if huesped:
-        return jsonify(huesped), 201
+    reserva = Reserva.consultar_reserva(codigo)
+    if reserva:
+        return jsonify(reserva), 201
     else:
         return "Reserva no registrada", 403
 
@@ -191,7 +191,7 @@ def agregar_reserva():
     egreso = request.form['egreso']
     pago = request.form['pago']
 
-    if Huesped.agregar_reserva(codigo, apellido, nombre, dni, mail, cantidad, habitacion, ingreso, egreso, pago):
+    if Reserva.agregar_reserva(codigo, apellido, nombre, dni, mail, cantidad, habitacion, ingreso, egreso, pago):
         return jsonify({"mensaje": "Reserva registrada"}), 201
     else: 
         return jsonify({"mensaje": "Ya existe este codigo"}), 400
@@ -216,7 +216,7 @@ def modificar_reserva(codigo):
     nuevo_pago = data.get("pago")
 
 #actualizacion de la reserva
-    if huespes.modificar_reserva(codigo, nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago):
+    if reserva.modificar_reserva(codigo, nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago):
         return jsonify({"mensaje": "Reserva modificada"}), 200
     else:
         return jsonify({"mensaje": "Reserva no encontrada"}), 404
@@ -226,7 +226,7 @@ def modificar_reserva(codigo):
 
 @app.route("/reservas/<int:codigo>", methods=["DELETE"])
 def eliminar_reservas(codigo):
-    if huesped.eliminar_reservas(codigo):
+    if reser.eliminar_reservas(codigo):
         return jsonify({"mensaje": "Reserva eliminada"}), 200
     else:
         return jsonify({"mensaje": "Reserva no encontrada"}), 404
