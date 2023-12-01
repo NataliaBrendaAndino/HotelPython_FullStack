@@ -24,6 +24,8 @@ CORS(app)  # Esto habilitará CORS para todas las rutas
 #--------------------------------------------------------------------
 
 class Reserva:
+    #atributo de clase
+    reservas = [ ]
     #--------------------------------------------------------------------
     def __init__(self, host, user, password, database):
         # Primero, establecemos una conexion sin especificar la base de datos
@@ -46,18 +48,17 @@ class Reserva:
                 raise err
 
 # Una vez que la base de datos esta establecida, creamos la tabla si no existe
-        self.cursor.execute('''CREATE TABLE IF NOT EXIST reservas(
-            codigo INT (3) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-            apellido VARCHAR (60) NOT NULL,
-            nombre VARCHAR (60) NOT NULL,
-            dni INT (8), NOT NULL,
-            correo VARCHAR (40),
-            cantidad INT(1),
-            habitacion VARCHAR (10),
-            ingreso DATETIME,
-            egreso DATETIME,
-            pago VARCHAR (15))
-                            ''')
+        self.cursor.execute('''CREATE TABLE IF NOT EXISTS reservas(
+            codigo INT,
+            apellido VARCHAR (60),
+            nombre VARCHAR (60),
+            dni INT,
+            correo VARCHAR(30),
+            cantidad INT,
+            habitacion VARCHAR(10),
+            ingreso DATE,
+            egreso DATE,
+            pago VARCHAR (15))''')
         self.conn.commit()
 
 
@@ -69,77 +70,80 @@ class Reserva:
 
 #--------------------------------------------------------------------
 
-    def agregar_reserva(self, cod, ape, nom, dni, correo, cant, hab, ingr, egr, pago):
+    def agregar_reserva(self, cod, ape, nom, dni, mail, cant, hab, ingr, egr, pago):
         # Verificamos si ya existe el huesped con el mismo codigo de reserva
-        self.cursor.execute(f"SELECT * FROM reservas WHERE codigo = {codigo}")
-        reserva_existe = self.cursor.fetchone()
-        if reserva_existe:
+        self.cursor.execute(f"SELECT * FROM reservas WHERE codigo = {cod}")
+        respuesta = self.cursor.fetchone()
+        if respuesta:
             return False
+        else:                
+            sql = f"INSERT INTO reservas (codigo, apellido, nombre, dni, correo, cantidad, habitacion, ingreso, egreso, pago) VALUES ({cod}, '{ape}', '{nom}', {dni}, '{mail}', {cant}, '{hab}', {ingr}, {egr}, '{pago}')"
 
-        sql = "INSERT INTO reservas (codigo, apellido, nombre, dni, mail, cantidad, habitacion, ingreso, egreso, pago) VALUES (%s %s %s %s %s %s %s)"
-        valores = (codigo, apellido, nombre, dni, correo, cantidad, habitacion,ingreso, egreso, pago)
-
-        self.cursor.execute(sql, valores)
+        self.cursor.execute(sql)
         self.conn.commit()
         return True
 
 
 #--------------------------------------------------------------------
 
-    def consultar_reserva(self, codigo):
-# Consultamos el huesped a partir del codigo de reserva
-        self.cursor.execute(f"SELECT * FROM reservas WHERE codigo = {codigo}")
-        return self.cursor.fetchone()
+    def ver_reservas(self, cod):
+        self.cursor.execute(f"SELECT * FROM reservas WHERE codigo = {cod}")
+        respuesta = self.cursor.fetchone()
+        return respuesta 
 
 
 #--------------------------------------------------------------------
 
-    def modificar_reserva(self, codigo, nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago):
-        sql = "UPDATE reservas SET apellido = %s, nombre = %s, dni = %s, mail = %s, cantidad = %s, habitacion = %s, ingreso = %s, egreso = %s, pago = %s WHERE codigo = %s"
-        valores = (nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_correo, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago, codigo)
-        self.cursor.execute(sql, valores)
+    def modificar_reserva(self, cod, ape, nom, dni, mail, cant, hab, ingr, egr, pago):
+        sql = f"UPDATE reservas SET \
+                    apellido = '{ape}', \
+                    nombre = '{nom}', \
+                    dni = {dni}, \
+                    correo = '{mail}', \
+                    cantidad = {cant}, \
+                    habitacion = '{hab}', \
+                    ingreso = {ingr}, \
+                    egreso = {egr}, \
+                    pago = '{pago}' \
+                WHERE codigo = {cod}"
+        self.cursor.execute(sql)
         self.conn.commit()
         return self.cursor.rowcount > 0
 
 
 #--------------------------------------------------------------------
 
-
     def listar_reservas(self):
         self.cursor.execute("SELECT * FROM reservas")
         reservas = self.cursor.fetchall()
         return reservas
 
-
 #--------------------------------------------------------------------
 
-    def eliminar_reservas(self, codigo):
-    # Eliminamos una reserva de la tabla a partir de su codigo (o apretando el boton en la tabla???)
-        self.cursor.execute(f"DELETE FROM reservas WHERE codigo = {codigo}")
+    def eliminar_reservas(self, cod):
+        self.cursor.execute(f"DELETE FROM reservas WHERE codigo = {cod}")
         self.conn.commit()
-        return self.cursor.rowcount > 0 
+        return self.cursor.rowcount > 0
 
 
 #--------------------------------------------------------------------
 
-    def mostrar_reservas(self, codigo):
-    # Mostramos los datos de un huesped a partir de su codigo de reserva
-        reserva = self.consultar_reserva(codigo)
-    if reserva: 
-        print ("-" * 40)
-        print (f"Código........: {reserva['codigo']}")
-        print (f"Apellido......: {reserva['apellido']}")
-        print (f"Nombre........: {reserva['nombre']}")
-        print (f"DNI...........: {reserva['dni']}")
-        print (f"Mail..........: {reserva['mail']}")
-        print (f"Cantidad......: {reserva['cantidad']}")
-        print (f"Habitacion....: {reserva['habitacion']}")
-        print (f"Fe. de Ingreso: {reserva['ingreso']}")
-        print (f"Fe. de Egreso.: {reserva['egreso']}")
-        print (f"Me. de Pago...: {reserva['pago']}")
-        print ("-" * 40)
-    else: 
-        print("Huesped no registrado.")
+    def mostrar_reservas(self, reserva):
+        if reserva:
+            print("-"*15)
+            print(f"    Codigo: {reserva['codigo']}")
+            print(f"  Apellido: {reserva['apellido']}")
+            print(f"    Nombre: {reserva['nombre']}")
+            print(f"       DNI: {reserva['dni']}")
+            print(f"    Correo: {reserva['correo']}")
+            print(f"  Cantidad: {reserva['cantidad']}")
+            print(f"Habitacion: {reserva['habitacion']}")
+            print(f"   Ingreso: {reserva['ingreso']}")
+            print(f"    Egreso: {reserva['egreso']}")
+            print(f"      Pago: {reserva['pago']}")
+            print("-"*15)
+        else: 
+            print("Huesped no registrado.")
 
 
 #--------------------------------------------------------------------
@@ -149,26 +153,28 @@ class Reserva:
 
 reserva = Reserva(host='localhost', user='root', password='', database= 'miapp')
 
-reserva.agregar_reserva(1, "Paez", "Florencia", 36170641, fajglgl@hotmail.com, 2, CSS, 28112023, 30112023, 2)
-reserva.agregar_reserva(2, "Dominguez", "Pedro", 23575685, fajglgl@hotmail.com, 1, HTML, 30112023, 15122023, 2)
-reserva.agregar_reserva(3, "Stover", "Juan Martin", 28194042, fajglgl@hotmail.com, 2, PYTHON , 29112023, 12122023, 2)
+reserva.agregar_reserva(1, "Paez", "Florencia", 36174865, "paezflorencia@gmail.com", 2, "PYTHON", '20231223', '20231202', "efectivo")
+reserva.agregar_reserva(2, "Rodriguez", "Damian", 23567246, "damian_rod@gmail.com", 2, "HTML", '20231210', '20231201', "tarjeta")
+reserva.agregar_reserva(3, "Castro", "Daniel", 13567284, "castrodan@gmail.com", 4, "JAVASCRIPT", '20231210', '20231201', "tarjeta")
+reserva.agregar_reserva(4, "Juarez", "Unai", 33466224, "unaijuarez_17@gmail.com", 2, "CSS", '20240110', '20240115', "tarjeta")
+
 
 
 #--------------------------------------------------------------------
 
 #fetch("https://jovial-klepon-1e2878.netlify.app/reservar")
 @app.route("/reservas", methods=["GET"])
-def listar_reservas():
-    reserva = Reserva.listar_reservas()
-    return jsonify(reserva)
+def listar():
+    reservas = reserva.listar_reservas()
+    return jsonify(reservas)
 
 #--------------------------------------------------------------------
 
 @app.route("/reservas/<int:codigo>", methods=["GET"])
-def mostrar_reservas(codigo):
-    reserva = Reserva.consultar_reserva(codigo)
-    if reserva:
-        return jsonify(reserva), 201
+def mostrar_reserva_reservas(codigo):
+    reservas = reserva.ver_reservas(codigo)
+    if reservas:
+        return jsonify(reservas), 201
     else:
         return "Reserva no registrada", 403
 
@@ -180,14 +186,14 @@ def agregar_reserva():
     apellido = request.form['apellido']
     nombre = request.form['nombre']
     dni = request.form['dni']
-    mail = request.form['mail']
+    correo = request.form['correo']
     cantidad = request.form['cantidad']
     habitacion = request.form['habitacion']
     ingreso = request.form['ingreso']
     egreso = request.form['egreso']
     pago = request.form['pago']
 
-    if Reserva.agregar_reserva(codigo, apellido, nombre, dni, mail, cantidad, habitacion, ingreso, egreso, pago):
+    if reserva.agregar_reserva(codigo, apellido, nombre, dni, correo, cantidad, habitacion, ingreso, egreso, pago):
         return jsonify({"mensaje": "Reserva registrada"}), 201
     else: 
         return jsonify({"mensaje": "Ya existe este codigo"}), 400
@@ -222,7 +228,7 @@ def modificar_reserva(codigo):
 
 @app.route("/reservas/<int:codigo>", methods=["DELETE"])
 def eliminar_reservas(codigo):
-    if reser.eliminar_reservas(codigo):
+    if reserva.eliminar_reservas(codigo):
         return jsonify({"mensaje": "Reserva eliminada"}), 200
     else:
         return jsonify({"mensaje": "Reserva no encontrada"}), 404

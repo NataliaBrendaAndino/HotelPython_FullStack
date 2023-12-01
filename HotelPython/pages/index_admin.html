@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOTEL PYTHON</title>
     <link rel="shortcut icon" href="../img/logo4.png" type="image/x-icon">
@@ -30,51 +29,25 @@
                 <table>
                     <thead>
                         <tr>
-                            <th scope="col">Reserva</th>
-                            <th scope="col">DNI</th>
+                            <th scope="col">Codigo</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Nombre</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Habitacion</th>
                             <th scope="col">Fecha de Ingreso</th>
                             <th scope="col">Fecha de Egreso</th>
+                            <th scope="col">Metodo de Pago</th>
                             <th scope="col">Modificar</th>
                             <th scope="col">Eliminar</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                    <tbody id="tablaReservas">
                     </tbody>
                 </table>
             </div>
         </main>
-
 
         <footer class="footer">
             <div>
@@ -82,21 +55,43 @@
                 <p>Grupo 1 - HOTEL PYTHON</p>
             </div>
         </footer>
+
+        <script>
+            const URL = "http://127.0.0.1:5000/"
+        // Realizamos la solicitud GET al servidor para obtener todos los productos
+        fetch(URL + 'reservas')
+            .then(function (response) {
+                if (response.ok) {return response.json(); }
+            })
+            .then(function (data) {
+                let tablaReservas = document.getElementById('tablaReservas');
+
+                // Iteramos sobre los productos y agregamos filas a la tabla
+                for (let reserva of data) {
+                    let fila = document.createElement('tr');
+                    fila.innerHTML = 
+                        '<td>' + reserva.codigo + '</td>' +
+                        '<td>' + reserva.apellido + '</td>' +
+                        '<td>' + reserva.nombre + '</td>' +
+                        '<td>' + reserva.dni + '</td>' +
+                        '<td>' + reserva.correo + '</td>' +
+                        '<td align="right">' + reserva.cantidad + '</td>' +
+                        '<td align="right">' + reserva.habitacion + '</td>' +
+                        '<td>' + reserva.ingreso + '</td>' +
+                        '<td>' + reserva.egreso + '</td>' +
+                        '<td align="right">' + reserva.pago + '</td>';
+                    tablaReservas.appendChild(fila);
+                }
+            })
+            .catch(function (error) {
+                // Código para manejar errores
+                alert('Error al obtener los productos.');
+            });
+        </script>
 </body>
 
-=======
-=======
->>>>>>> b3dc0924a5e14ef10cb4a5f67dd08fc7fdaf63c4
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Estamos en el index admin</h3>
-</body>
-<<<<<<< HEAD
->>>>>>> b3dc0924a5e14ef10cb4a5f67dd08fc7fdaf63c4
-=======
->>>>>>> b3dc0924a5e14ef10cb4a5f67dd08fc7fdaf63c4
 </html>
+
+
+
+

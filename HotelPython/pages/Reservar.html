@@ -78,20 +78,24 @@
         <section class="formContacto">
             <form id="contactanos" action="index.html" method="post">
 
-                <label for="firstname">Nombre huesped principal: </label>
-                <input size="30" type="text" name="firstname" id="firstname" placeholder="Ingrese su nombre aqui">
+                <label for="firstname">Apellido huesped principal: </label>
+                <input size="30" type="text" name="lastname" id="lastname" placeholder="Ingrese su nombre aqui">
 
                 <br><br>
-                <label for="lastname">Apellido huesped principal:</label>
-                <input size="30" type="text" name="lastname" id="lastname" placeholder="Ingrese su apellido aqui...">
+                <label for="lastname">Nombre huesped principal:</label>
+                <input size="30" type="text" name="firstname" id="firstname" placeholder="Ingrese su apellido aqui...">
 
                 <br><br>
-                <label for="number">Cantidad de huéspedes:</label>
-                <input type="number" name="number" id="number" placeholder="Ingrese el numero de huéspedes.." required min="1" max="20">
+                <label for="dni">DNI:</label>
+                <input type="number" name="number" id="dni" placeholder="Ingrese el numero de huéspedes..">
 
                 <br><br>
                 <label for="mail">Mail: </label>
                 <input type="email" name="mail" id="mail" placeholder="Ingrese su email" required>
+
+                <br><br>
+                <label for="number">Cantidad de huéspedes:</label>
+                <input type="number" name="number" id="number" placeholder="Ingrese el numero de huéspedes.." required min="1" max="20">
 
                 <br><br>
                 <label for="habitacion">Seleccione una habitación:</label>
@@ -158,6 +162,52 @@
         <div class="administrador">
             <a href="./administrador.html">Ingresar como Administrador</a>
         </div>
+
+        <script>
+            const URL = "http://127.0.0.1:5000/"
+    
+            // Capturamos el evento de envío del formulario
+            document.getElementById('formulario').addEventListener('submit', function (event) {
+                event.preventDefault(); // Evitamos que se envie el form 
+    
+                var formData = new FormData();
+                formData.append('codigo', document.getElementById('codigo').value);
+                formData.append('apellido', document.getElementById('lastname').value);
+                formData.append('nombre', document.getElementById('firstname').value);
+                formData.append('dni', document.getElementById('dni').value);
+                formData.append('correo', document.getElementById('mail').value);
+                formData.append('cantidad', document.getElementById('number').value);
+                formData.append('habitacion', document.getElementById('habitacion').value);
+                formData.append('ingreso', document.getElementById('fecha_de_ingreso').value);
+                formData.append('egreso', document.getElementById('fecha_de_salida').value);
+
+                
+                fetch(URL + 'reservas', {
+                    method: 'POST',
+                    body: formData // Aquí enviamos formData en lugar de JSON
+                })
+                .then(function (response) {
+                    if (response.ok) { return response.json(); }
+                })
+                .then(function (data) {
+                    alert('Reserva registrada correctamente.');
+                    // Limpiar el formulario para el proximo producto
+                    document.getElementById('codigo').value= "";
+                    document.getElementById('lastname').value= "";
+                    document.getElementById('firstname').value= "";
+                    document.getElementById('dni').value= "";
+                    document.getElementById('mail').value= "";
+                    document.getElementById('number').value= "";
+                    document.getElementById('habitacion').value= "";
+                    document.getElementById('fecha_de_ingreso').value= "";
+                    document.getElementById('fecha_de_salida').value= "";
+                })
+                .catch(function (error) {
+                    // Mostramos el error, y no limpiamos el form.
+                    alert('Error al agregar la reserva.');
+                });
+            })
+        </script>
 
 </body>
 
