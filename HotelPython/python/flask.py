@@ -51,19 +51,15 @@ class Reserva:
             apellido VARCHAR (60) NOT NULL,
             nombre VARCHAR (60) NOT NULL,
             dni INT (8), NOT NULL,
-            mail VARCHAR
+            correo VARCHAR (40),
             cantidad INT(1),
             habitacion VARCHAR (10),
-            ingreso INT(8),
-            egreso INT(8),
-            pago INT(2))
+            ingreso DATETIME,
+            egreso DATETIME,
+            pago VARCHAR (15))
                             ''')
         self.conn.commit()
 
-
-#REVISAR
-# codigo seria como un codigo de reserva (un id)
-# fijarse como poner el mail y las fechas
 
 
 # Cerrar el cursor inicial y abrir uno nuevo con el parametro dictionary=True
@@ -73,7 +69,7 @@ class Reserva:
 
 #--------------------------------------------------------------------
 
-    def agregar_reserva(self, codigo, apellido, nombre, dni, mail, cantidad, habitacion, ingreso, egreso, pago):
+    def agregar_reserva(self, cod, ape, nom, dni, correo, cant, hab, ingr, egr, pago):
         # Verificamos si ya existe el huesped con el mismo codigo de reserva
         self.cursor.execute(f"SELECT * FROM reservas WHERE codigo = {codigo}")
         reserva_existe = self.cursor.fetchone()
@@ -81,7 +77,7 @@ class Reserva:
             return False
 
         sql = "INSERT INTO reservas (codigo, apellido, nombre, dni, mail, cantidad, habitacion, ingreso, egreso, pago) VALUES (%s %s %s %s %s %s %s)"
-        valores = (codigo, apellido, nombre, dni, ingreso, egreso, pago)
+        valores = (codigo, apellido, nombre, dni, correo, cantidad, habitacion,ingreso, egreso, pago)
 
         self.cursor.execute(sql, valores)
         self.conn.commit()
@@ -100,7 +96,7 @@ class Reserva:
 
     def modificar_reserva(self, codigo, nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago):
         sql = "UPDATE reservas SET apellido = %s, nombre = %s, dni = %s, mail = %s, cantidad = %s, habitacion = %s, ingreso = %s, egreso = %s, pago = %s WHERE codigo = %s"
-        valores = (nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago, codigo)
+        valores = (nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_correo, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago, codigo)
         self.cursor.execute(sql, valores)
         self.conn.commit()
         return self.cursor.rowcount > 0

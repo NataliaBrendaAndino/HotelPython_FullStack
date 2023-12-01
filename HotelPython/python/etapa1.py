@@ -8,6 +8,16 @@ reservas = []
 # {'cod':1, 'apellido': , 'nombre: ', , , , , }
 
 
+#----------------------------------------------
+#Funcion para consultar las reservas
+#----------------------------------------------
+
+def ver_reservas(cod):
+    for reserva in reservas:
+        if reserva['codigo'] == cod:
+            return reserva
+    return False
+
 
 #----------------------------------------------
 #Funcion para dar de alta a los huespedes
@@ -32,6 +42,7 @@ def agregar_reserva(cod, ape, nom, dni, mail, cant, hab, ingr, egr, pago):
         reservas.append(huesped)
         return True
 
+
 #----------------------------------------------
 #Funcion para listar a las reservas
 #----------------------------------------------
@@ -52,15 +63,6 @@ def listar_reservas():
         print("-"*15)
 
 
-#----------------------------------------------
-#Funcion para consultar las reservas
-#----------------------------------------------
-
-def ver_reservas(cod):
-    for reserva in reservas:
-        if reserva['codigo'] == cod:
-            return reserva
-    return False
 
 #----------------------------------------------
 #Funcion para mostrar las reservas

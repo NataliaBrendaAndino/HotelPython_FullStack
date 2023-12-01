@@ -1,38 +1,20 @@
-#agregar un conector a la base de datos:
-import mysql.connector
-
-
-
-
 #creamos un objeto de reservas
 
 class Reserva:
     #atributo de clase
     reservas = [ ]
     #constructor
-    def __init__(self, host, user, password, database):
-        self.conn = mysql.connector.connect(
-            host = host,
-            user = user,
-            password = password,
-            database = database
-        )
-        self.cursor = self.conn.cursor(dictionary=True)
-        self.cursor.execute('''CREATE TABLE IF NOT EXISTS reservas(
-            codigo INT (3) NOT NULL AUTO_INCREMENT, 
-            apellido VARCHAR (60) NOT NULL,
-            nombre VARCHAR (60) NOT NULL,
-            dni INT (8), NOT NULL,
-            mail VARCHAR
-            cantidad INT(1),
-            habitacion VARCHAR (10),
-            ingreso INT(8),
-            egreso INT(8),
-            pago INT(2))''')
-        self.conn.commit()
-
-
-
+#    def __init__(self, cod, ape, nom, dni, mail, cant, hab, ingr, egr, pago):
+#        self.codigo = cod
+#        self.apellido = ape
+#        self.nombre = nom
+#        self.dni = dni
+#        self.mail = mail
+#        self.cantidad = cant
+#        self.habitacion = hab
+#        self.ingreso = ingr
+#        self.egreso = egr
+#        self.pago = pago
 
 
     #----------------------------------------------
@@ -165,15 +147,17 @@ class Reserva:
 
 print("\033[H\033[J")
 
-huesped = Reserva(host= "localhost", user="root", password="", database="miapp")
+huesped = Reserva()
 
-#huesped.agregar_reserva(1, "Perez", "Alejando", 24595284, "alejandroperez@gmail.com", 2, "HTML", 12122023, 20122023, "tarjeta")
-#huesped.agregar_reserva(2, "Rico", "Maria", 35167585, "rico_maria@gmail.com", 4, "PYTHON" , 12122023, 20122023, "tarjeta")
 
-#a = huesped.ver_reservas(1)
-#b = huesped.ver_reservas(2)
+huesped.agregar_reserva(1, "Perez", "Alejando", 24595284, "alejandroperez@gmail.com", 2, "HTML", 12122023, 20122023, "tarjeta")
 
-#huesped.listar_reservas()
+#huesped2.agregar_reserva(2, "Rico", "Maria", 35167585, "rico_maria@gmail.com", 4, "PYTHON" , 12122023, 20122023, "tarjeta")
+
+#a = huesped1.ver_reservas(1)
+#b = huesped2.ver_reservas(2)
+
+huesped.listar_reservas()
 
 #huesped.mostrar_reservas(a)
 #huesped.mostrar_reservas(b)
