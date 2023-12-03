@@ -49,16 +49,14 @@ class Reserva:
 
 # Una vez que la base de datos esta establecida, creamos la tabla si no existe
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS reservas(
-            codigo INT,
             apellido VARCHAR (60),
             nombre VARCHAR (60),
-            dni INT,
+            dni INT PRIMARY KEY,
             correo VARCHAR(30),
             cantidad INT,
             habitacion VARCHAR(10),
             ingreso DATE,
-            egreso DATE,
-            pago VARCHAR (15))''')
+            egreso DATE)''')
         self.conn.commit()
 
 
@@ -70,14 +68,14 @@ class Reserva:
 
 #--------------------------------------------------------------------
 
-    def agregar_reserva(self, cod, ape, nom, dni, mail, cant, hab, ingr, egr, pago):
+    def agregar_reserva(self, ape, nom, dni, mail, cant, hab, ingr, egr):
         # Verificamos si ya existe el huesped con el mismo codigo de reserva
-        self.cursor.execute(f"SELECT * FROM reservas WHERE codigo = {cod}")
+        self.cursor.execute(f"SELECT * FROM reservas WHERE dni = {dni}")
         respuesta = self.cursor.fetchone()
         if respuesta:
             return False
         else:                
-            sql = f"INSERT INTO reservas (codigo, apellido, nombre, dni, correo, cantidad, habitacion, ingreso, egreso, pago) VALUES ({cod}, '{ape}', '{nom}', {dni}, '{mail}', {cant}, '{hab}', {ingr}, {egr}, '{pago}')"
+            sql = f"INSERT INTO reservas (apellido, nombre, dni, correo, cantidad, habitacion, ingreso, egreso) VALUES ('{ape}', '{nom}', {dni}, '{mail}', {cant}, '{hab}', {ingr}, {egr})"
 
         self.cursor.execute(sql)
         self.conn.commit()
@@ -86,26 +84,24 @@ class Reserva:
 
 #--------------------------------------------------------------------
 
-    def ver_reservas(self, cod):
-        self.cursor.execute(f"SELECT * FROM reservas WHERE codigo = {cod}")
+    def ver_reservas(self, dni):
+        self.cursor.execute(f"SELECT * FROM reservas WHERE dni = {dni}")
         respuesta = self.cursor.fetchone()
         return respuesta 
 
 
 #--------------------------------------------------------------------
 
-    def modificar_reserva(self, cod, ape, nom, dni, mail, cant, hab, ingr, egr, pago):
+    def modificar_reserva(self, ape, nom, dni, mail, cant, hab, ingr, egr):
         sql = f"UPDATE reservas SET \
                     apellido = '{ape}', \
                     nombre = '{nom}', \
-                    dni = {dni}, \
                     correo = '{mail}', \
                     cantidad = {cant}, \
                     habitacion = '{hab}', \
                     ingreso = {ingr}, \
                     egreso = {egr}, \
-                    pago = '{pago}' \
-                WHERE codigo = {cod}"
+                WHERE dni = {dni}"
         self.cursor.execute(sql)
         self.conn.commit()
         return self.cursor.rowcount > 0
@@ -120,8 +116,8 @@ class Reserva:
 
 #--------------------------------------------------------------------
 
-    def eliminar_reservas(self, cod):
-        self.cursor.execute(f"DELETE FROM reservas WHERE codigo = {cod}")
+    def eliminar_reservas(self, dni):
+        self.cursor.execute(f"DELETE FROM reservas WHERE dni = {dni}")
         self.conn.commit()
         return self.cursor.rowcount > 0
 
@@ -131,7 +127,6 @@ class Reserva:
     def mostrar_reservas(self, reserva):
         if reserva:
             print("-"*15)
-            print(f"    Codigo: {reserva['codigo']}")
             print(f"  Apellido: {reserva['apellido']}")
             print(f"    Nombre: {reserva['nombre']}")
             print(f"       DNI: {reserva['dni']}")
@@ -140,7 +135,6 @@ class Reserva:
             print(f"Habitacion: {reserva['habitacion']}")
             print(f"   Ingreso: {reserva['ingreso']}")
             print(f"    Egreso: {reserva['egreso']}")
-            print(f"      Pago: {reserva['pago']}")
             print("-"*15)
         else: 
             print("Huesped no registrado.")
@@ -153,10 +147,11 @@ class Reserva:
 
 reserva = Reserva(host='localhost', user='root', password='', database= 'miapp')
 
-reserva.agregar_reserva(1, "Paez", "Florencia", 36174865, "paezflorencia@gmail.com", 2, "PYTHON", '20231223', '20231202', "efectivo")
-reserva.agregar_reserva(2, "Rodriguez", "Damian", 23567246, "damian_rod@gmail.com", 2, "HTML", '20231210', '20231201', "tarjeta")
-reserva.agregar_reserva(3, "Castro", "Daniel", 13567284, "castrodan@gmail.com", 4, "JAVASCRIPT", '20231210', '20231201', "tarjeta")
-reserva.agregar_reserva(4, "Juarez", "Unai", 33466224, "unaijuarez_17@gmail.com", 2, "CSS", '20240110', '20240115', "tarjeta")
+reserva.agregar_reserva("Paez", "Florencia", 36174865, "paezflorencia@gmail.com", 2, "PYTHON", '20231223', '20231202')
+reserva.agregar_reserva("Rodriguez", "Damian", 23567246, "damian_rod@gmail.com", 2, "HTML", '20231210', '20231201')
+reserva.agregar_reserva("Castro", "Daniel", 13567284, "castrodan@gmail.com", 4, "JAVASCRIPT", '20231210', '20231201')
+reserva.agregar_reserva("Juarez", "Unai", 33466224, "unaijuarez_17@gmail.com", 2, "CSS", '20240110', '20240115')
+
 
 
 
@@ -170,9 +165,9 @@ def listar():
 
 #--------------------------------------------------------------------
 
-@app.route("/reservas/<int:codigo>", methods=["GET"])
-def mostrar_reserva_reservas(codigo):
-    reservas = reserva.ver_reservas(codigo)
+@app.route("/reservas/<int:dni>", methods=["GET"])
+def mostrar_reserva_reservas(dni):
+    reservas = reserva.ver_reservas(dni)
     if reservas:
         return jsonify(reservas), 201
     else:
@@ -182,28 +177,24 @@ def mostrar_reserva_reservas(codigo):
 
 @app.route("/reservas", methods=["POST"])
 def agregar_reserva():
-    codigo = request.form['codigo']
-    apellido = request.form['apellido']
-    nombre = request.form['nombre']
+    apellido = request.form['lastname']
+    nombre = request.form['firstname']
     dni = request.form['dni']
-    correo = request.form['correo']
-    cantidad = request.form['cantidad']
+    correo = request.form['mail']
+    cantidad = request.form['number']
     habitacion = request.form['habitacion']
-    ingreso = request.form['ingreso']
-    egreso = request.form['egreso']
-    pago = request.form['pago']
+    ingreso = request.form['fecha_de_ingreso']
+    egreso = request.form['fecha_de_egreso']
 
-    if reserva.agregar_reserva(codigo, apellido, nombre, dni, correo, cantidad, habitacion, ingreso, egreso, pago):
+    if reserva.agregar_reserva(apellido, nombre, dni, correo, cantidad, habitacion, ingreso, egreso):
         return jsonify({"mensaje": "Reserva registrada"}), 201
-    else: 
-        return jsonify({"mensaje": "Ya existe este codigo"}), 400
 
 
 #--------------------------------------------------------------------
 
 
-@app.route("/reservas/<int:codigo>", methods=["PUT"])
-def modificar_reserva(codigo):
+@app.route("/reservas/<int:dni>", methods=["PUT"])
+def modificar_reserva(dni):
     #revisar como hacer para poder modificar a traves de un boton
     #datos de la reserva
     data = request.form
@@ -215,10 +206,9 @@ def modificar_reserva(codigo):
     nueva_habitacion = data.get("habitacion")
     nuevo_ingreso = data.get("ingreso")
     nuevo_egreso = data.get("egreso")
-    nuevo_pago = data.get("pago")
 
 #actualizacion de la reserva
-    if reserva.modificar_reserva(codigo, nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, nuevo_pago):
+    if reserva.modificar_reserva(nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso):
         return jsonify({"mensaje": "Reserva modificada"}), 200
     else:
         return jsonify({"mensaje": "Reserva no encontrada"}), 404
@@ -226,9 +216,9 @@ def modificar_reserva(codigo):
 
 #--------------------------------------------------------------------
 
-@app.route("/reservas/<int:codigo>", methods=["DELETE"])
-def eliminar_reservas(codigo):
-    if reserva.eliminar_reservas(codigo):
+@app.route("/reservas/<int:dni>", methods=["DELETE"])
+def eliminar_reservas(dni):
+    if reserva.eliminar_reservas(dni):
         return jsonify({"mensaje": "Reserva eliminada"}), 200
     else:
         return jsonify({"mensaje": "Reserva no encontrada"}), 404

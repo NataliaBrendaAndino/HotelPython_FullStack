@@ -78,11 +78,11 @@
         <section class="formContacto">
             <form id="contactanos" action="index.html" method="post">
 
-                <label for="firstname">Apellido huesped principal: </label>
+                <label for="lastname">Apellido huesped principal: </label>
                 <input size="30" type="text" name="lastname" id="lastname" placeholder="Ingrese su nombre aqui">
 
                 <br><br>
-                <label for="lastname">Nombre huesped principal:</label>
+                <label for="firstname">Nombre huesped principal:</label>
                 <input size="30" type="text" name="firstname" id="firstname" placeholder="Ingrese su apellido aqui...">
 
                 <br><br>
@@ -171,15 +171,14 @@
                 event.preventDefault(); // Evitamos que se envie el form 
     
                 var formData = new FormData();
-                formData.append('codigo', document.getElementById('codigo').value);
-                formData.append('apellido', document.getElementById('lastname').value);
-                formData.append('nombre', document.getElementById('firstname').value);
+                formData.append('firstname', document.getElementById('firstname').value);
+                formData.append('lastname', document.getElementById('lastname').value);
                 formData.append('dni', document.getElementById('dni').value);
-                formData.append('correo', document.getElementById('mail').value);
-                formData.append('cantidad', document.getElementById('number').value);
+                formData.append('mail', document.getElementById('mail').value);
+                formData.append('number', document.getElementById('number').value);
                 formData.append('habitacion', document.getElementById('habitacion').value);
-                formData.append('ingreso', document.getElementById('fecha_de_ingreso').value);
-                formData.append('egreso', document.getElementById('fecha_de_salida').value);
+                formData.append('fecha_de_ingreso', document.getElementById('fecha_de_ingreso').value);
+                formData.append('fecha_de_salida', document.getElementById('fecha_de_salida').value);
 
                 
                 fetch(URL + 'reservas', {
@@ -192,7 +191,6 @@
                 .then(function (data) {
                     alert('Reserva registrada correctamente.');
                     // Limpiar el formulario para el proximo producto
-                    document.getElementById('codigo').value= "";
                     document.getElementById('lastname').value= "";
                     document.getElementById('firstname').value= "";
                     document.getElementById('dni').value= "";
@@ -208,6 +206,7 @@
                 });
             })
         </script>
+
 
 </body>
 
