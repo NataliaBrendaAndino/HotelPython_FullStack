@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -15,83 +15,118 @@
 </head>
 
 <body class="container">
-        <header class="inicio">
-            <div class="logo">
-                <img src="../img/logo3.png" alt="Logo Hotel Python">
-            </div>
-            <div class="titulo">
-                <h3><b>ADMINISTRACIÓN</b></h3>
-            </div>
-        </header>
+    <header class="inicio">
+        <div class="logo">
+            <img src="../img/logo3.png" alt="Logo Hotel Python">
+        </div>
+        <div class="titulo">
+            <h3><b>ADMINISTRACIÓN</b></h3>
+        </div>
+    </header>
 
-        <main class="listado">
-            <div class="tabla">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Codigo</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">DNI</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Habitacion</th>
-                            <th scope="col">Fecha de Ingreso</th>
-                            <th scope="col">Fecha de Egreso</th>
-                            <th scope="col">Metodo de Pago</th>
-                            <th scope="col">Modificar</th>
-                            <th scope="col">Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaReservas">
-                    </tbody>
-                </table>
-            </div>
-        </main>
+    <main>
+        <div class="acciones">
+            <p class="bienvenida">Bienvenido, Administrador</p>
+            <p class="submensaje">¿Qué desea hacer?</p>
+            <button onclick="listarReservas()">Listar Reservas</button>
+            <button onclick="buscarPorDNI()">Buscar Reservas por DNI</button>
+        </div>
+        
+    </main>
 
-        <footer class="footer">
-            <div>
-                <p>CODO A CODO 2023</p>
-                <p>Grupo 1 - HOTEL PYTHON</p>
-            </div>
-        </footer>
+    <main class="listado">
+        <div class="tabla">
+            <table id="reservasTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Habitacion</th>
+                        <th scope="col">Fecha de Ingreso</th>
+                        <th scope="col">Fecha de Egreso</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaReservas">
+                </tbody>
+            </table>
+        </div>
+    </main>
 
-        <script>
-            const URL = "http://127.0.0.1:5000/"
-        // Realizamos la solicitud GET al servidor para obtener todos los productos
+    <footer class="footer">
+        <div>
+            <p>CODO A CODO 2023</p>
+            <p>Grupo 1 - HOTEL PYTHON</p>
+        </div>
+    </footer>
+
+    <script>
+        const URL = "http://127.0.0.1:5000/";
+
+        function formatearFecha(fecha) {
+            const opciones = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Date(fecha).toLocaleDateString('es-ES', opciones);
+        }
+
+        function listarReservas() {
+            // Obtener la tabla de reservas por ID
+            const reservasTable = document.getElementById('reservasTable');
+
+            // Desplaza la vista hacia la tabla de reservas
+            reservasTable.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function buscarPorDNI() {
+            // Realizar la lógica para buscar reservas por DNI aquí
+            alert('Buscar reservas por DNI');
+        }
+
+        function modificarReserva(codigo) {
+            // Realizar la lógica para modificar reserva aquí
+            alert('Modificar reserva con código: ' + codigo);
+        }
+
+        function eliminarReserva(codigo) {
+            // Realiza la lógica para eliminar reserva aquí
+            alert('Eliminar reserva con código: ' + codigo);
+        }
+
+        // Realizamos la solicitud GET al servidor para obtener todas las reservas
         fetch(URL + 'reservas')
             .then(function (response) {
-                if (response.ok) {return response.json(); }
+                if (response.ok) { return response.json(); }
             })
             .then(function (data) {
                 let tablaReservas = document.getElementById('tablaReservas');
 
-                // Iteramos sobre los productos y agregamos filas a la tabla
+                // Iteramos sobre las reservas y agregamos filas a la tabla
                 for (let reserva of data) {
                     let fila = document.createElement('tr');
-                    fila.innerHTML = 
-                        '<td>' + reserva.codigo + '</td>' +
+                    fila.innerHTML =
                         '<td>' + reserva.apellido + '</td>' +
                         '<td>' + reserva.nombre + '</td>' +
                         '<td>' + reserva.dni + '</td>' +
                         '<td>' + reserva.correo + '</td>' +
                         '<td align="right">' + reserva.cantidad + '</td>' +
                         '<td align="right">' + reserva.habitacion + '</td>' +
-                        '<td>' + reserva.ingreso + '</td>' +
-                        '<td>' + reserva.egreso + '</td>' +
-                        '<td align="right">' + reserva.pago + '</td>';
+                        '<td>' + formatearFecha(reserva.ingreso) + '</td>' +
+                        '<td>' + formatearFecha(reserva.egreso) + '</td>' +
+                        '<td>' +
+                        '<button class="modificar" onclick="modificarReserva(' + reserva.codigo + ')">Modificar</button>' +
+                        '<button class="eliminar" onclick="eliminarReserva(' + reserva.codigo + ')">Eliminar</button>' +
+                        '</td>';
                     tablaReservas.appendChild(fila);
                 }
             })
             .catch(function (error) {
                 // Código para manejar errores
-                alert('Error al obtener los productos.');
+                alert('Error al obtener las reservas.');
             });
-        </script>
+    </script>
+
 </body>
 
 </html>
-
-
-
-

@@ -33,7 +33,6 @@
                     <li><a href="../index.html">INICIO</a></li>
                     <li><a href="./Habitacion.html">HABITACIONES</a></li>
                     <li><a href="./Servicios.html">SERVICIOS</a></li>
-                    <li><a href="./comentarios.html">COMENTARIOS</a></li>
                     <li><a href="../index.html#contactanos">CONTACTO</a></li>
                 </ul>
             </nav>
@@ -76,14 +75,15 @@
         </section>
 
         <section class="formContacto">
-            <form id="contactanos" action="index.html" method="post">
+            <form id="formulario" action="http://127.0.0.1:5000/reservas" method="POST">
+
 
                 <label for="firstname">Apellido huesped principal: </label>
-                <input size="30" type="text" name="lastname" id="lastname" placeholder="Ingrese su nombre aqui">
+                <input size="30" type="text" name="firstname" id="lastname" placeholder="Ingrese su nombre aqui">
 
                 <br><br>
                 <label for="lastname">Nombre huesped principal:</label>
-                <input size="30" type="text" name="firstname" id="firstname" placeholder="Ingrese su apellido aqui...">
+                <input size="30" type="text" name="lastname" id="firstname" placeholder="Ingrese su apellido aqui...">
 
                 <br><br>
                 <label for="dni">DNI:</label>
@@ -126,7 +126,7 @@
                 </div>
 
                 <br>
-                <input type="submit" value="Enviar" href="./datos.html">
+                <input type="submit" value="Enviar" href="http://127.0.0.1:5000/reservas">
                 <button type="reset">Reset</button>
             </form>
         </section>
@@ -171,15 +171,14 @@
                 event.preventDefault(); // Evitamos que se envie el form 
     
                 var formData = new FormData();
-                formData.append('codigo', document.getElementById('codigo').value);
-                formData.append('apellido', document.getElementById('lastname').value);
-                formData.append('nombre', document.getElementById('firstname').value);
+                formData.append('firstname', document.getElementById('firstname').value);
+                formData.append('lastname', document.getElementById('lastname').value);
                 formData.append('dni', document.getElementById('dni').value);
-                formData.append('correo', document.getElementById('mail').value);
-                formData.append('cantidad', document.getElementById('number').value);
+                formData.append('mail', document.getElementById('mail').value);
+                formData.append('number', document.getElementById('number').value);
                 formData.append('habitacion', document.getElementById('habitacion').value);
-                formData.append('ingreso', document.getElementById('fecha_de_ingreso').value);
-                formData.append('egreso', document.getElementById('fecha_de_salida').value);
+                formData.append('fecha_de_ingreso', document.getElementById('fecha_de_ingreso').value);
+                formData.append('fecha_de_salida', document.getElementById('fecha_de_salida').value);
 
                 
                 fetch(URL + 'reservas', {
@@ -192,7 +191,6 @@
                 .then(function (data) {
                     alert('Reserva registrada correctamente.');
                     // Limpiar el formulario para el proximo producto
-                    document.getElementById('codigo').value= "";
                     document.getElementById('lastname').value= "";
                     document.getElementById('firstname').value= "";
                     document.getElementById('dni').value= "";
