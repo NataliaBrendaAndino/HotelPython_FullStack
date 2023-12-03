@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOTEL PYTHON - Buscar Reservas por DNI</title>
+    <link rel="shortcut icon" href="../img/logo4.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/estilos_adminitrador.css"> 
+</head>
+
+<body class="administrador">
+    <header class="inicio">
+        <div class="logo">
+            <img src="../img/logo3.png" alt="Logo Hotel Python">
+        </div>
+        <div class="titulo">
+            <h3><b>ADMINISTRACIÓN</b></h3>
+        </div>
+    </header>
+
+    <main>
+        <div class="acciones">
+            <form id="buscarPorDNIForm" action="http://127.0.0.1:5000/reservas">
+                <br>
+                <label for="dni">Ingrese el DNI del pasajero:</label>
+                <br><br>
+                <input type="text" id="dni" name="dni" required>
+                <br><br>
+                <button type="submit">Buscar Reservas</button>
+                <br><br><br><br>
+            </form>
+        </div>
+        
+    </main>
+
+    <div class="listado">
+            <div class="tabla">
+                <h2>Listado de Reservas</h2>
+                <table id="reservasTable">
+                    
+                    <tbody id="tablaReservas">
+                    </tbody>
+                </table>
+    </div>
+
+    <footer class="footer">
+        <div>
+            <p>CODO A CODO 2023</p>
+            <p>Grupo 1 - HOTEL PYTHON</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('buscarPorDNIForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar que se envíe el formulario de forma convencional
+
+            // Obtener el valor del campo DNI
+            const dni = document.getElementById('dni').value;
+
+            // Realizar la solicitud GET al servidor
+            fetch(`http://127.0.0.1:5000/reservas/${dni}`)
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else if (response.status === 403) {
+                        throw new Error("Reserva no registrada");
+                    } else {
+                        throw new Error("Error en la solicitud");
+                    }
+                })
+                .then(function (data) {
+                    // Lógica para manejar la respuesta exitosa (data)
+                    console.log(data);
+                    actualizarTablaReservasDni(data);
+                })
+                .catch(function (error) {
+                    // Lógica para manejar errores
+                    console.error(error.message);
+                });
+        });
+
+        
+        function actualizarTablaReservasDni(data) {
+    let tablaReservasDni = document.getElementById('tablaReservas');
+    
+    // Limpiar contenido actual de la tabla
+    tablaReservasDni.innerHTML = '';
+
+    // Verificar si data es un objeto
+    if (typeof data === 'object' && data !== null) {
+        // Especificar el orden de las columnas
+        const columnas = ['apellido', 'nombre', 'dni', 'correo', 'cantidad', 'habitacion', 'ingreso', 'egreso'];
+
+        // Crear una fila de encabezado
+        let encabezado = document.createElement('tr');
+        for (let columna of columnas) {
+            let th = document.createElement('th');
+            th.textContent = columna;
+            encabezado.appendChild(th);
+        }
+        tablaReservasDni.appendChild(encabezado);
+
+        // Crear una fila de datos
+        let fila = document.createElement('tr');
+        for (let columna of columnas) {
+            let td = document.createElement('td');
+            td.textContent = data[columna];
+            fila.appendChild(td);
+        }
+        tablaReservasDni.appendChild(fila);
+    } else {
+        console.error("Los datos de reserva no son un objeto iterable.");
+    }
+}
+
+
+    </script>
+
+</body>
+
+</html>
