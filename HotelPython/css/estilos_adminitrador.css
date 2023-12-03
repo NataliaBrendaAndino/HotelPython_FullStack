@@ -28,3 +28,16 @@ a{
     padding-top: 30px;
     color: black;
 }
+
+.acciones button {
+    padding: 10px 20px;
+    margin: 3px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(5, 23, 51); /* Color azul para los botones */
+}

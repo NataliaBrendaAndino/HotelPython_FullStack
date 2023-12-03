@@ -29,20 +29,27 @@
                 <input type="text" id="dni" name="dni" required>
                 <br><br>
                 <button type="submit">Buscar Reservas</button>
-                <br><br><br><br>
+                <br><br>
             </form>
+            <div class="botones">
+                <button onclick="modificarReserva()">Modificar Reserva</button>
+                <br><br>
+                <button onclick="eliminarReserva()">Eliminar Reserva</button>
+            </div>
         </div>
         
     </main>
 
     <div class="listado">
             <div class="tabla">
-                <h2>Listado de Reservas</h2>
+                <h2>Búsqueda avanzada 🔎</h2>
                 <table id="reservasTable">
                     
                     <tbody id="tablaReservas">
                     </tbody>
                 </table>
+            </div>
+            
     </div>
 
     <footer class="footer">
@@ -66,18 +73,23 @@
                         return response.json();
                     } else if (response.status === 403) {
                         throw new Error("Reserva no registrada");
+                        alert('DNI inexistente');
                     } else {
                         throw new Error("Error en la solicitud");
+                        alert('Error en el servidor');
                     }
                 })
                 .then(function (data) {
                     // Lógica para manejar la respuesta exitosa (data)
                     console.log(data);
                     actualizarTablaReservasDni(data);
+                    document.getElementById('reservasTable').scrollIntoView({ behavior: 'smooth' });
+
                 })
                 .catch(function (error) {
                     // Lógica para manejar errores
                     console.error(error.message);
+                    alert('DNI no encontrado, inténtelo nuevamente');
                 });
         });
 
