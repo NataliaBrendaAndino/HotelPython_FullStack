@@ -51,8 +51,8 @@ class Reserva:
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS reservas(
             apellido VARCHAR (60),
             nombre VARCHAR (60),
-            dni INT PRIMARY KEY,
-            correo VARCHAR(30),
+            dni INT,
+            correo VARCHAR(30) UNIQUE,
             cantidad INT,
             habitacion VARCHAR(10),
             ingreso DATE,
@@ -91,17 +91,10 @@ class Reserva:
 
 #--------------------------------------------------------------------
 
-    def modificar_reserva(self, ape, nom, dni, mail, cant, hab, ingr, egr):
-        sql = f"UPDATE reservas SET \
-                    apellido = '{ape}', \
-                    nombre = '{nom}', \
-                    correo = '{mail}', \
-                    cantidad = {cant}, \
-                    habitacion = '{hab}', \
-                    ingreso = {ingr}, \
-                    egreso = {egr}, \
-                WHERE dni = {dni}"
-        self.cursor.execute(sql)
+    def modificar_reserva(self, antiguo_dni, nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso):
+        sql = "UPDATE reservas SET apellido= %s, nombre = %s, dni = %s, correo = %s, cantidad = %s, habitacion = %s, ingreso = %s, egreso = %s  WHERE dni = %s"
+        valores = (nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso, antiguo_dni)
+        self.cursor.execute(sql, valores)
         self.conn.commit()
         return self.cursor.rowcount > 0
 
@@ -192,25 +185,29 @@ def agregar_reserva():
 #--------------------------------------------------------------------
 
 
-@app.route("/reservas/<int:dni>", methods=["PUT"])
-def modificar_reserva(dni):
-    #revisar como hacer para poder modificar a traves de un boton
-    #datos de la reserva
-    data = request.form
-    nuevo_apellido = data.get("apellido")
-    nuevo_nombre = data.get("nombre")
-    nuevo_dni = data.get("dni")
-    nuevo_mail = data.get("mail")
-    nueva_cantidad = data.get("cantidad")
-    nueva_habitacion = data.get("habitacion")
-    nuevo_ingreso = data.get("ingreso")
-    nuevo_egreso = data.get("egreso")
+@app.route("/reservas/<int:antiguo_dni>", methods=["PUT"])
+def modificar_reserva(antiguo_dni):
+    # revisar como hacer para poder modificar a través de un botón
+    # datos de la reserva
+    nuevo_apellido = request.form.get('apellido')
+    nuevo_nombre = request.form.get('nombre')
+    nuevo_dni = request.form.get('nuevo_dni')
+    nuevo_correo = request.form.get('correo')
+    nueva_cantidad = request.form.get('cantidad')
+    nueva_habitacion = request.form.get('habitacion')
+    nuevo_ingreso = request.form.get('ingreso')
+    nuevo_egreso = request.form.get('egreso')
 
-#actualizacion de la reserva
-    if reserva.modificar_reserva(nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_mail, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso):
-        return jsonify({"mensaje": "Reserva modificada"}), 200
-    else:
-        return jsonify({"mensaje": "Reserva no encontrada"}), 404
+    # actualización de la reserva
+    try:
+        if reserva.modificar_reserva(antiguo_dni, nuevo_apellido, nuevo_nombre, nuevo_dni, nuevo_correo, nueva_cantidad, nueva_habitacion, nuevo_ingreso, nuevo_egreso):
+            return jsonify({"mensaje": "Reserva modificada"}), 200
+        else:
+            return jsonify({"mensaje": "Reserva no encontrada"}), 404
+    except Exception as e:
+        print("Error al modificar reserva:", e)
+        return jsonify({"mensaje": "Error al modificar reserva"}), 500
+
 
 
 #--------------------------------------------------------------------
