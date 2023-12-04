@@ -77,12 +77,13 @@
         <section class="formContacto">
             <form id="formulario" action="http://127.0.0.1:5000/reservas" method="POST">
 
-                <label for="lastname">Apellido huesped principal: </label>
-                <input size="30" type="text" name="lastname" id="lastname" placeholder="Ingrese su nombre aqui">
+
+                <label for="firstname">Apellido huesped principal: </label>
+                <input size="30" type="text" name="firstname" id="lastname" placeholder="Ingrese su nombre aqui">
 
                 <br><br>
-                <label for="firstname">Nombre huesped principal:</label>
-                <input size="30" type="text" name="firstname" id="firstname" placeholder="Ingrese su apellido aqui...">
+                <label for="lastname">Nombre huesped principal:</label>
+                <input size="30" type="text" name="lastname" id="firstname" placeholder="Ingrese su apellido aqui...">
 
                 <br><br>
                 <label for="dni">DNI:</label>
@@ -177,7 +178,7 @@
                 formData.append('number', document.getElementById('number').value);
                 formData.append('habitacion', document.getElementById('habitacion').value);
                 formData.append('fecha_de_ingreso', document.getElementById('fecha_de_ingreso').value);
-                formData.append('fecha_de_egreso', document.getElementById('fecha_de_salida').value);
+                formData.append('fecha_de_salida', document.getElementById('fecha_de_salida').value);
 
                 
                 fetch(URL + 'reservas', {
@@ -205,7 +206,6 @@
                 });
             })
         </script>
-
 
 </body>
 

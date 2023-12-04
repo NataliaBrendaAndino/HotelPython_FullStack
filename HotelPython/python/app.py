@@ -139,10 +139,10 @@ class Reserva:
 
 reserva = Reserva(host='localhost', user='root', password='root', database= 'miapp')
 
-reserva.agregar_reserva("Paez", "Florencia", 36174865, "paezflorencia@gmail.com", 2, "PYTHON", '20231223', '20231202')
-reserva.agregar_reserva("Rodriguez", "Damian", 23567246, "damian_rod@gmail.com", 2, "HTML", '20231210', '20231201')
-reserva.agregar_reserva("Castro", "Daniel", 13567284, "castrodan@gmail.com", 4, "JAVASCRIPT", '20231210', '20231201')
-reserva.agregar_reserva("Juarez", "Unai", 33466224, "unaijuarez_17@gmail.com", 2, "CSS", '20240110', '20240115')
+#reserva.agregar_reserva("Paez", "Florencia", 36174865, "paezflorencia@gmail.com", 2, "PYTHON", '20231223', '20231202')
+#reserva.agregar_reserva("Rodriguez", "Damian", 23567246, "damian_rod@gmail.com", 2, "HTML", '20231210', '20231201')
+#reserva.agregar_reserva("Castro", "Daniel", 13567284, "castrodan@gmail.com", 4, "JAVASCRIPT", '20231210', '20231201')
+#reserva.agregar_reserva("Juarez", "Unai", 33466224, "unaijuarez_17@gmail.com", 2, "CSS", '20240110', '20240115')
 
 
 
