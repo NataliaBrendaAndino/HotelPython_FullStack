@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+    <link rel="shortcut icon" href="logos/lo" type="image/x-icon">
+    <link rel="stylesheet" href="./css/estilos_menu.css">
+    <link rel="stylesheet" href="../css/estilos_datos.css">
+    <script src="script.js"></script>
+    <!-- Otras etiquetas head -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<body>
+    <main class="contenedor-principal">
+        <header class="inicio">
+            <div class="logo">
+                <img src="../img/logo3.png" alt="Logo Hotel Python">
+            </div>
+            <div class="titulo">
+                <h3><b>ADMINISTRACIÓN</b></h3>
+            </div>
+        </header>
+        <section class="listado" id="inicio"> 
+            <h2>Datos de la Reserva</h2>    
+            <form id="formulario" action="http://127.0.0.1:5000/reservas" method="POST">
+                <div>
+                    <label for="lastname">Apellido:</label>
+                    <input size="30" type="text" name="lastname" id="lastname" placeholder="Ingrese su apellido aqui...">
+
+                    <br><br>
+                    <label for="firstname">Nombre: </label>
+                    <input size="30" type="text" name="firstname" id="firstname" placeholder="Ingrese su nombre aqui">
+
+                    <br><br>
+                    <label for="dni">DNI: </label>
+                    <input type="number" name="dni" id="dni" placeholder="Ingrese su DNI" required>
+
+                    <br><br>
+                    <label for="mail">Mail: </label>
+                    <input type="email" name="mail" id="mail" placeholder="Ingrese su email" required>
+                </div>
+
+                <div>
+                    <div>
+                        <!-- Contenido del cuerpo del HTML -->
+                        <br><br>
+                        <label for="fecha_de_ingreso">Fecha de ingreso:</label>
+                        <input type="text" id="fecha_de_ingreso" name="fecha_de_ingreso">
+
+                        <br><br>
+
+                        <label for="fecha_de_salida">Fecha de salida:</label>
+                        <input type="text" id="fecha_de_salida" name="fecha_de_salida">
+                        <br><br>
+
+                        <!-- Script para inicializar flatpickr -->
+                        <script>
+                            flatpickr("#fecha_de_ingreso");
+                            flatpickr("#fecha_de_salida");
+                        </script>
+                    </div>
+                    <label for="number">Cantidad de huéspedes:</label>
+                    <input type="number" name="number" id="number" placeholder="Ingrese el numero de huéspedes.." required min="1" max="4">
+
+                    <br><br>
+                    <label for="habitacion">Seleccione una habitación:</label>
+                    <select name="habitacion" id="habitacion">
+                        <option value="html">Habitación HTML</option>
+                        <option value="css">Habitación CSS</option>
+                        <option value="javascript">Habitación JavaScript</option>
+                        <option value="github">Habitación GitHub</option>
+                    </select>
+
+
+                </div>    
+                <br>
+                
+            </form>
+            <div id="botones">
+                <input type="submit" value="Modificar reserva">
+            </div>
+        </section>
+
+
+        <footer class="footer">
+            <div>
+                <p>CODO A CODO 2023</p>
+                <p>Grupo 1 - HOTEL PYTHON</p>
+            </div>
+        </footer>
+
+
+        <script>
+
+        </script>
+
+</body>
+
+</html>

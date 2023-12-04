@@ -215,9 +215,9 @@ def modificar_reserva(dni):
 
 #--------------------------------------------------------------------
 
-@app.route("/reservas/<int:codigo>", methods=["DELETE"])
-def eliminar_reservas(codigo):
-    if reserva.eliminar_reservas(codigo):
+@app.route("/reservas/<int:dni>", methods=["DELETE"])
+def eliminar_reservas(dni):
+    if reserva.eliminar_reservas(dni):
         return jsonify({"mensaje": "Reserva eliminada"}), 200
     else:
         return jsonify({"mensaje": "Reserva no encontrada"}), 404

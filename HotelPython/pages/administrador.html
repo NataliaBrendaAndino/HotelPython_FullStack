@@ -33,8 +33,19 @@
         <input type="submit" value="Enviar" onclick="validarContraseña(event)">
         <button type="reset">Reset</button>
     </form>
+    <a href="../index.html">Volver al inicio</a>
 
-    <a href="index.html">Volver al inicio</a>
-</body>
-
+    <script>
+      function validarContraseña(event) {
+        event.preventDefault();
+        var usuario = document.getElementById("firstname").value;
+        var contraseña = document.getElementById("password").value;
+        if (usuario === "python" && contraseña === "admin123") {
+          window.location.href = "index_admin.html";
+        } else {
+          alert("Usuario o contraseña incorrecta");
+        }
+      }
+    </script>
+  </body>
 </html>
