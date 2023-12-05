@@ -25,12 +25,16 @@
         <div id="app">
             <form @submit.prevent="obtenerProducto">
                 <label for="dni">Reserva a modificar (dni):</label>
+                <br><br>
                 <input type="number" v-model="antiguo_dni" required><br>
-                <button type="submit">Modificar Reserva</button> 
+                <br><br>
+                <button type="submit">Modificar Reserva</button>
+                <br><br><br>
             </form>
             <div v-if="mostrarDatosProducto">
-                <form @submit.prevent="guardarCambios(antiguo_dni)" action="http://127.0.0.1:5000/reservas/${antiguo_dni}"  method="PUT">
-                    
+                <form @submit.prevent="guardarCambios(antiguo_dni)"
+                    action="http://127.0.0.1:5000/reservas/${antiguo_dni}" method="PUT">
+
                     <input type="hidden" name="antiguo_dni" v-model="antiguo_dni">
 
                     <label for="apellido">Apellido huesped principal: </label>
@@ -91,6 +95,9 @@
             <p>CODO A CODO 2023</p>
             <p>Grupo 1 - HOTEL PYTHON</p>
         </div>
+        <div class="administrador">
+            <a href="./index_admin.html">Volver 👈</a>
+        </div>
     </footer>
 
     <script src="https://unpkg.com/vue@next"></script>
@@ -115,7 +122,12 @@
             methods: {
                 obtenerProducto() {
                     fetch(URL + 'reservas/' + this.antiguo_dni)
-                        .then(response => response.json())
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('DNI no encontrado en la base de datos');
+                            }
+                            return response.json();
+                        })
                         .then(data => {
                             this.apellido = data.apellido;
                             this.nombre = data.nombre;
@@ -127,7 +139,10 @@
                             this.egreso = data.egreso;
                             this.mostrarDatosProducto = true;
                         })
-                        .catch(error => console.error('Error:', error));
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('DNI no encontrado en la base de datos');
+                        });
                 },
                 guardarCambios(antiguo_dni) {
                     const formData = new FormData();

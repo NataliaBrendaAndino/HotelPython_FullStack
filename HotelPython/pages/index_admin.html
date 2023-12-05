@@ -29,7 +29,8 @@
             <p class="bienvenida">Bienvenido, Administrador</p>
             <p class="submensaje">¿Qué desea hacer?</p>
             <button onclick="listarReservas()">Listar Reservas</button>
-            <button onclick="buscarPorDNI()">Buscar Reservas por DNI</button>
+            <button onclick="buscarPorDNI()">Búsqueda avanzada 🔎</button>
+            <button onclick="modificar_reserva()">Modificar Reservas</button>
         </div>
 
     </main>
@@ -47,7 +48,6 @@
                         <th scope="col">Habitacion</th>
                         <th scope="col">Fecha de Ingreso</th>
                         <th scope="col">Fecha de Egreso</th>
-                        <th scope="col">Modificar</th>
                         <th scope="col">Eliminar</th>
                     </tr>
                 </thead>
@@ -106,9 +106,6 @@
                         '<td>' + formatearFecha(reserva.ingreso) + '</td>' +
                         '<td>' + formatearFecha(reserva.egreso) + '</td>' +
                         '<td>' +
-                        '<button class="modificar" onclick="modificar_reserva(' + reserva.dni + ')">Modificar</button>' +
-                        '</td>' +
-                        '<td>' +
                         '<button class="eliminar" onclick="eliminar_reserva(' + reserva.dni + ')">X</button>' +
                         '</td>';
                     tablaReservas.appendChild(fila);
@@ -119,9 +116,9 @@
                 alert('Error al obtener las reservas.');
             });
 
-        function modificar_reserva(dni) {
+        function modificar_reserva() {
             // Realizar la lógica para modificar reserva aquí
-            alert('Modificar reserva con código: ' + dni);
+            window.location.href = 'modificar_reserva.html';
 
 
         }
