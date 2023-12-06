@@ -138,6 +138,8 @@ class Reserva:
 # Crear una instancia de la clase Huesped
 
 reserva = Reserva(host='localhost', user='root', password='root', database= 'miapp')
+#reserva = Reserva(host='NataliaBrenda91.mysql.pythonanywhere-services.com', user='NataliaBrenda91', password='', database= 'NataliaBrenda91$miapp')
+
 
 #reserva.agregar_reserva("Paez", "Florencia", 36174865, "paezflorencia@gmail.com", 2, "PYTHON", '20231223', '20231202')
 #reserva.agregar_reserva("Rodriguez", "Damian", 23567246, "damian_rod@gmail.com", 2, "HTML", '20231210', '20231201')
