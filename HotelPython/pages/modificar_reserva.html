@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOTEL PYTHON - Buscar Reservas por DNI</title>
+    <link rel="shortcut icon" href="../img/logo4.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/estilos_adminitrador.css">
+</head>
+
+<body class="administrador">
+    <header class="inicio">
+        <div class="logo">
+            <img src="../img/logo3.png" alt="Logo Hotel Python">
+        </div>
+        <div class="titulo">
+            <h3><b>ADMINISTRACIÓN</b></h3>
+        </div>
+    </header>
+
+    <main>
+
+        <div id="app">
+            <form @submit.prevent="obtenerProducto">
+                <label for="dni">Reserva a modificar (dni):</label>
+                <br><br>
+                <input type="number" v-model="antiguo_dni" required><br>
+                <br><br>
+                <button type="submit">Modificar Reserva</button>
+                <br><br><br>
+            </form>
+            <div v-if="mostrarDatosProducto">
+                <form @submit.prevent="guardarCambios(antiguo_dni)"
+                    action="http://127.0.0.1:5000/reservas/${antiguo_dni}" method="PUT">
+
+                    <input type="hidden" name="antiguo_dni" v-model="antiguo_dni">
+
+                    <label for="apellido">Apellido huesped principal: </label>
+                    <input size="30" type="text" id="apellido" placeholder="Ingrese su nombre aqui" v-model="apellido"
+                        required>
+
+                    <br><br>
+                    <label for="nombre">Nombre huesped principal:</label>
+                    <input size="30" type="text" id="nombre" placeholder="Ingrese su apellido aqui..." v-model="nombre"
+                        required>
+
+                    <br><br>
+                    <label for="dni">DNI:</label>
+                    <input type="number" name="nuevo_dni" id="nuevo_dni" placeholder="Ingrese el numero de huéspedes.."
+                        v-model="nuevo_dni" required>
+
+                    <br><br>
+                    <label for="mail">Mail: </label>
+                    <input type="email" name="correo" id="mail" placeholder="Ingrese su email" required v-model="correo"
+                        required>
+
+                    <br><br>
+                    <label for="cantidad">Cantidad de huéspedes:</label>
+                    <input type="number" id="number" name="cantidad" placeholder="Ingrese el numero de huéspedes.."
+                        required min="1" max="20" v-model="cantidad" required>
+
+                    <br><br>
+                    <label for="habitacion">Seleccione una habitación:</label>
+                    <select name="habitacion" id="habitacion" v-model="habitacion" required>
+                        <option value="html">Habitación HTML</option>
+                        <option value="css">Habitación CSS</option>
+                        <option value="javascript">Habitación JavaScript</option>
+                        <option value="python">Habitación Python</option>
+                    </select>
+                    <br><br>
+                    <label for="ingreso">Fecha de ingreso AAAA-MM-DD:</label>
+                    <input type="text" id="ingreso" name="ingreso" v-model="ingreso" required>
+
+                    <br><br>
+
+                    <label for="egreso">Fecha de salida AAAA-MM-DD:</label>
+                    <input type="text" id="fecha_de_salida" name="egreso" v-model="egreso" required>
+                    <br><br>
+
+                    <button type="submit">Guardar Cambios</button>
+                    <a href="modificar_reserva.html">Cancelar</a>
+                </form>
+            </div>
+        </div>
+
+        <!---AQUI PODRIA IR LUEGO ELIMINAR-->
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div>
+            <p>CODO A CODO 2023</p>
+            <p>Grupo 1 - HOTEL PYTHON</p>
+        </div>
+        <div class="administrador">
+            <a href="./index_admin.html">Volver 👈</a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        //const URL = "http://127.0.0.1:5000/"
+        const URL = "https://astronave.pythonanywhere.com/"
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    apellido: '',
+                    nombre: '',
+                    nuevo_dni: '',
+                    correo: '',
+                    cantidad: '',
+                    habitacion: '',
+                    ingreso: '',
+                    egreso: '',
+                    mostrarDatosProducto: false,
+                };
+            },
+            methods: {
+                obtenerProducto() {
+                    fetch(URL + 'reservas/' + this.antiguo_dni)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('DNI no encontrado en la base de datos');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            this.apellido = data.apellido;
+                            this.nombre = data.nombre;
+                            this.nuevo_dni = data.nuevo_dni;
+                            this.correo = data.correo;
+                            this.cantidad = data.cantidad;
+                            this.habitacion = data.habitacion;
+                            this.ingreso = data.ingreso;
+                            this.egreso = data.egreso;
+                            this.mostrarDatosProducto = true;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('DNI no encontrado en la base de datos');
+                        });
+                },
+                guardarCambios(antiguo_dni) {
+                    const formData = new FormData();
+                    formData.append('antiguo_dni', this.antiguo_dni);
+                    formData.append('apellido', this.apellido);
+                    formData.append('nombre', this.nombre);
+                    formData.append('nuevo_dni', this.nuevo_dni);
+                    formData.append('correo', this.correo);
+                    formData.append('cantidad', this.cantidad);
+                    formData.append('habitacion', this.habitacion);
+                    formData.append('ingreso', this.ingreso);
+                    formData.append('egreso', this.egreso);
+
+                    fetch(URL + 'reservas/' + this.antiguo_dni, {
+                        method: 'PUT',
+                        body: formData,
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert('Reserva actualizada correctamente');
+                            this.limpiarFormulario();
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error al actualizar la reserva');
+                        });
+                },
+                limpiarFormulario() {
+                    this.apellido = '';
+                    this.nombre = '';
+                    this.dni = '';
+                    this.correo = '';
+                    this.cantidad = '';
+                    this.habitacion = '';
+                    this.ingreso = '';
+                    this.egreso = '';
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+
+
+</body>
+
+</html>

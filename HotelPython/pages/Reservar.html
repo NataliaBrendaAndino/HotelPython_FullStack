@@ -76,7 +76,12 @@
         </section>
 
         <section class="formContacto">
+<<<<<<< Updated upstream
             <form id="contactanos" action="index.html" method="post">
+=======
+            <!-- <form id="formulario" action="http://127.0.0.1:5000/reservas" method="POST"> -->
+            <form id="formulario" action="https://astronave.pythonanywhere.com/reservas" method="POST">
+>>>>>>> Stashed changes
 
                 <label for="firstname">Nombre huesped principal: </label>
                 <input size="30" type="text" name="firstname" id="firstname" placeholder="Ingrese su nombre aqui">
@@ -122,7 +127,12 @@
                 </div>
 
                 <br>
+<<<<<<< Updated upstream
                 <a href="./datos.html"><input type="submit" value="Enviar"></a>
+=======
+                <!--<input type="submit" value="Enviar" href="http://127.0.0.1:5000/reservas">-->
+                <input type="submit" value="Enviar" href="https://astronave.pythonanywhere.com/reservas">
+>>>>>>> Stashed changes
                 <button type="reset">Reset</button>
             </form>
         </section>
@@ -155,6 +165,59 @@
             </div>
             
         </footer>
+<<<<<<< Updated upstream
+=======
+
+        <div class="administrador">
+            <a href="./administrador.html">Ingresar como Administrador</a>
+        </div>
+
+        <script>
+            //const URL = "http://127.0.0.1:5000/"
+            const URL = "https://astronave.pythonanywhere.com/"
+    
+            // Capturamos el evento de envío del formulario
+            document.getElementById('formulario').addEventListener('submit', function (event) {
+                event.preventDefault(); // Evitamos que se envie el form 
+    
+                var formData = new FormData();
+                formData.append('firstname', document.getElementById('firstname').value);
+                formData.append('lastname', document.getElementById('lastname').value);
+                formData.append('dni', document.getElementById('dni').value);
+                formData.append('mail', document.getElementById('mail').value);
+                formData.append('number', document.getElementById('number').value);
+                formData.append('habitacion', document.getElementById('habitacion').value);
+                formData.append('fecha_de_ingreso', document.getElementById('fecha_de_ingreso').value);
+                formData.append('fecha_de_salida', document.getElementById('fecha_de_salida').value);
+
+                
+                fetch(URL + 'reservas', {
+                    method: 'POST',
+                    body: formData // Aquí enviamos formData en lugar de JSON
+                })
+                .then(function (response) {
+                    if (response.ok) { return response.json(); }
+                })
+                .then(function (data) {
+                    alert('Reserva registrada correctamente.');
+                    // Limpiar el formulario para el proximo producto
+                    document.getElementById('lastname').value= "";
+                    document.getElementById('firstname').value= "";
+                    document.getElementById('dni').value= "";
+                    document.getElementById('mail').value= "";
+                    document.getElementById('number').value= "";
+                    document.getElementById('habitacion').value= "";
+                    document.getElementById('fecha_de_ingreso').value= "";
+                    document.getElementById('fecha_de_salida').value= "";
+                })
+                .catch(function (error) {
+                    // Mostramos el error, y no limpiamos el form.
+                    alert('Error al agregar la reserva.');
+                });
+            })
+        </script>
+
+>>>>>>> Stashed changes
 </body>
 
 </html>
