@@ -48,7 +48,7 @@
 
                     <br><br>
                     <label for="dni">DNI:</label>
-                    <input type="number" name="nuevo_dni" id="nuevo_dni" placeholder="Ingrese el numero de huéspedes.."
+                    <input type="number" name="antiguo_dni" id="antiguo_dni" placeholder="Ingrese el dni.."
                         v-model="nuevo_dni" required>
 
                     <br><br>
@@ -70,14 +70,23 @@
                         <option value="python">Habitación Python</option>
                     </select>
                     <br><br>
-                    <label for="ingreso">Fecha de ingreso AAAA-MM-DD:</label>
-                    <input type="text" id="ingreso" name="ingreso" v-model="ingreso" required>
 
-                    <br><br>
+                    <div>
+                        <label for="ingreso">Fecha de ingreso AAAA-MM-DD:</label>
+                        <input type="text" id="ingreso" name="ingreso" v-model="ingreso" required>
 
-                    <label for="egreso">Fecha de salida AAAA-MM-DD:</label>
-                    <input type="text" id="fecha_de_salida" name="egreso" v-model="egreso" required>
-                    <br><br>
+                        <br><br>
+
+                        <label for="egreso">Fecha de salida AAAA-MM-DD:</label>
+                        <input type="text" id="fecha_de_salida" name="egreso" v-model="egreso" required>
+                        <br><br>
+                        <script>
+                            flatpickr("#fecha_de_ingreso");
+                            flatpickr("#fecha_de_salida");
+                        </script>
+                    </div>
+
+
 
                     <button type="submit">Guardar Cambios</button>
                     <a href="modificar_reserva.html">Cancelar</a>

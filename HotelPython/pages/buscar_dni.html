@@ -66,7 +66,7 @@
 
             // Realizar la solicitud GET al servidor
             //fetch(`http://127.0.0.1:5000/reservas/${dni}`)
-            fetch(`https://astronave.pythonanywhere.com/reservas/reservas/${dni}`)
+            fetch(`https://astronave.pythonanywhere.com/reservas/${dni}`)
                 .then(function (response) {
                     if (response.ok) {
                         return response.json();
