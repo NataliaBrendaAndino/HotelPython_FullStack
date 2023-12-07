@@ -69,7 +69,10 @@ img{
 /*----Estilo para la tabla----*/
 .listado table {
     border-collapse: collapse;
-    width: 80%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .listado th, .listado td {

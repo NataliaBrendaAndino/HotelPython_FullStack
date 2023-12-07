@@ -68,11 +68,6 @@
         const URL = "http://127.0.0.1:5000/";
         //const URL = "https://NataliaBrenda91.mysql.pythonanywhere-services.com/";
 
-        function formatearFecha(fecha) {
-            const opciones = { day: '2-digit', month: '2-digit', year: 'numeric' };
-            return new Date(fecha).toLocaleDateString('es-ES', opciones);
-        }
-
         function listarReservas() {
             // Obtener la tabla de reservas por ID
             const reservasTable = document.getElementById('reservasTable');
@@ -104,8 +99,8 @@
                         '<td>' + reserva.correo + '</td>' +
                         '<td align="right">' + reserva.cantidad + '</td>' +
                         '<td align="right">' + reserva.habitacion + '</td>' +
-                        '<td>' + formatearFecha(reserva.ingreso) + '</td>' +
-                        '<td>' + formatearFecha(reserva.egreso) + '</td>' +
+                        '<td>' + reserva.ingreso + '</td>' +
+                        '<td>' + reserva.egreso + '</td>' +
                         '<td>' +
                         '<button class="eliminar" onclick="eliminar_reserva(' + reserva.dni + ')">X</button>' +
                         '</td>';
